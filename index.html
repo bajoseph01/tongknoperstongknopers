@@ -123,7 +123,10 @@
     }
 
     .tab-btn,
-    .action-btn {
+    .action-btn,
+    .mode-btn,
+    .small-btn,
+    .match-item {
       appearance: none;
       border: 3px solid var(--ink);
       border-radius: 999px;
@@ -137,12 +140,16 @@
     }
 
     .tab-btn:hover,
-    .action-btn:hover {
+    .action-btn:hover,
+    .mode-btn:hover,
+    .small-btn:hover,
+    .match-item:hover {
       transform: translate(2px, 2px);
       box-shadow: 2px 2px 0 var(--ink);
     }
 
-    .tab-btn.active {
+    .tab-btn.active,
+    .mode-btn.active {
       background: var(--tab-active);
       transform: translate(3px, 3px) rotate(-1deg);
       box-shadow: 1px 1px 0 var(--ink);
@@ -374,6 +381,194 @@
       margin: 0;
     }
 
+    .vocab-shell {
+      background: #fff;
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 7px 7px 0 var(--ink);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .mode-btn:nth-child(1) { background: var(--soft-blue); }
+    .mode-btn:nth-child(2) { background: var(--soft-green); }
+    .mode-btn:nth-child(3) { background: var(--soft-pink); }
+
+    .vocab-mode {
+      display: none;
+      animation: popIn 180ms ease both;
+    }
+
+    .vocab-mode.active {
+      display: block;
+    }
+
+    .vocab-help {
+      margin: 0 0 14px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .flashcard-box {
+      min-height: 250px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 4px dashed var(--ink);
+      border-radius: 22px;
+      background:
+        repeating-linear-gradient(0deg, #fffefa 0 29px, rgba(73,124,170,0.14) 30px, #fffefa 31px);
+      padding: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .flash-label {
+      display: inline-block;
+      background: var(--soft-yellow);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .flash-word {
+      font-size: clamp(2.5rem, 7vw, 5.6rem);
+      font-weight: 950;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .flash-sub {
+      margin-top: 14px;
+      font-weight: 800;
+      opacity: 0.8;
+    }
+
+    .small-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .small-btn {
+      background: var(--soft-purple);
+      border-radius: 14px;
+    }
+
+    .progress-pill,
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      background: var(--soft-yellow);
+    }
+
+    .match-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .match-column {
+      background: #fffefa;
+      border: 3px solid var(--ink);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .match-column h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .match-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .match-item {
+      width: 100%;
+      text-align: left;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .match-item.selected {
+      background: var(--soft-yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .match-item.matched {
+      background: var(--soft-green);
+      opacity: 0.72;
+      cursor: default;
+      text-decoration: line-through;
+    }
+
+    .match-item.wrong {
+      background: var(--soft-pink);
+    }
+
+    .type-box {
+      background: #fffefa;
+      border: 3px solid var(--ink);
+      border-radius: 22px;
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 18px;
+    }
+
+    .type-clue-label {
+      display: inline-block;
+      background: var(--soft-purple);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .type-clue {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0 0 16px;
+      font-weight: 950;
+      line-height: 1.05;
+    }
+
+    .type-input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .type-input {
+      flex: 1 1 240px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: 900 1.25rem/1.2 "Trebuchet MS", system-ui, sans-serif;
+      background: #fff;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
     .mini-routine {
       margin-top: 24px;
       display: grid;
@@ -402,7 +597,9 @@
     }
 
     button:focus-visible,
-    .card:focus-visible {
+    .card:focus-visible,
+    .flashcard-box:focus-visible,
+    .type-input:focus-visible {
       outline: 4px solid var(--focus);
       outline-offset: 3px;
     }
@@ -433,6 +630,10 @@
 
       .card {
         min-height: 160px;
+      }
+
+      .match-area {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -470,7 +671,10 @@
         break-after: page;
       }
 
-      .card {
+      .card,
+      .vocab-shell,
+      .match-column,
+      .type-box {
         box-shadow: none;
         break-inside: avoid;
       }
@@ -482,8 +686,15 @@
         opacity: 1;
       }
 
-      .card.locked::after {
+      .card.locked::after,
+      .mode-row,
+      .small-row,
+      .type-input-row {
         display: none;
+      }
+
+      .vocab-mode {
+        display: block !important;
       }
     }
   </style>
@@ -516,6 +727,7 @@
         <button class="tab-btn active" id="tab-easy" role="tab" aria-selected="true" aria-controls="panel-easy" data-tab="easy">Maklik</button>
         <button class="tab-btn" id="tab-medium" role="tab" aria-selected="false" aria-controls="panel-medium" data-tab="medium">Gemiddeld</button>
         <button class="tab-btn" id="tab-hard" role="tab" aria-selected="false" aria-controls="panel-hard" data-tab="hard">Uitdaging</button>
+        <button class="tab-btn" id="tab-vocab" role="tab" aria-selected="false" aria-controls="panel-vocab" data-tab="vocab">Woordeskat</button>
       </div>
 
       <div class="action-row">
@@ -648,6 +860,73 @@
         </div>
       </section>
 
+      <section class="level-panel" id="panel-vocab" role="tabpanel" aria-labelledby="tab-vocab" data-level="vocab">
+        <div class="level-heading">
+          <h2>Woordeskat</h2>
+          <span>Leer die Uitdaging-woorde aktief</span>
+        </div>
+
+        <div class="vocab-shell">
+          <div class="mode-row" aria-label="Woordeskat modusse">
+            <button class="mode-btn active" type="button" data-mode="flashcards">Flashcards</button>
+            <button class="mode-btn" type="button" data-mode="match">Match</button>
+            <button class="mode-btn" type="button" data-mode="type">Type Afrikaans</button>
+          </div>
+
+          <section class="vocab-mode active" id="mode-flashcards">
+            <p class="vocab-help">Klik op die kaart om die Engelse betekenis te wys. Gebruik dit vir vinnige aktiewe herroeping.</p>
+            <div class="flashcard-box" id="flashcardBox" tabindex="0" role="button" aria-label="Klik om die betekenis te wys">
+              <div>
+                <span class="flash-label" id="flashLabel">Afrikaans</span>
+                <p class="flash-word" id="flashWord">slak</p>
+                <div class="flash-sub" id="flashSub">Klik om Engels te wys</div>
+              </div>
+            </div>
+            <div class="small-row">
+              <button class="small-btn" type="button" id="prevFlashBtn">← Vorige</button>
+              <button class="small-btn" type="button" id="nextFlashBtn">Volgende →</button>
+              <button class="small-btn" type="button" id="shuffleFlashBtn">Skud kaarte</button>
+              <span class="progress-pill" id="flashProgress">1 / 20</span>
+            </div>
+          </section>
+
+          <section class="vocab-mode" id="mode-match">
+            <p class="vocab-help">Klik eers die Afrikaans woord, dan die Engelse betekenis. Regte pare bly groen.</p>
+            <div class="small-row">
+              <button class="small-btn" type="button" id="newMatchBtn">Nuwe stel</button>
+              <span class="progress-pill" id="matchProgress">0 / 8 reg</span>
+            </div>
+            <div class="match-area" aria-label="Match Afrikaans and English">
+              <div class="match-column">
+                <h3>Afrikaans</h3>
+                <div class="match-list" id="matchAfList"></div>
+              </div>
+              <div class="match-column">
+                <h3>English</h3>
+                <div class="match-list" id="matchEnList"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="vocab-mode" id="mode-type">
+            <p class="vocab-help">Lees die Engelse clue en tik die Afrikaans woord. Druk Enter of klik Check.</p>
+            <div class="type-box">
+              <span class="type-clue-label">English clue</span>
+              <p class="type-clue" id="typeClue">snail</p>
+              <div class="type-input-row">
+                <input class="type-input" id="typeInput" type="text" autocomplete="off" placeholder="Tik Afrikaans hier..." />
+                <button class="small-btn" type="button" id="checkTypeBtn">Check</button>
+                <button class="small-btn" type="button" id="nextTypeBtn">Volgende</button>
+              </div>
+              <div class="small-row">
+                <span class="feedback-pill" id="typeFeedback">Begin deur die woord te tik.</span>
+                <span class="progress-pill" id="typeProgress">1 / 20</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
       <section class="mini-routine" aria-label="Klaskamer roetine">
         <div class="routine-step">1. Klap die ritme saam.</div>
         <div class="routine-step">2. Fluister dit stadig.</div>
@@ -662,6 +941,29 @@
   </div>
 
   <script>
+    const vocabWords = [
+      { af: 'slak', en: 'snail' },
+      { af: 'sleep', en: 'drag/pull' },
+      { af: 'stadig', en: 'slowly' },
+      { af: 'sewe', en: 'seven' },
+      { af: 'slymerige', en: 'slimy' },
+      { af: 'slaaiblare', en: 'salad leaves/lettuce leaves' },
+      { af: 'grys', en: 'grey' },
+      { af: 'gryp', en: 'grab' },
+      { af: 'groot', en: 'big' },
+      { af: 'groen', en: 'green' },
+      { af: 'druiwe', en: 'grapes' },
+      { af: 'reguit', en: 'straight' },
+      { af: 'rondom', en: 'around' },
+      { af: 'rooi', en: 'red' },
+      { af: 'rotse', en: 'rocks' },
+      { af: 'vrolike', en: 'cheerful' },
+      { af: 'varke', en: 'pigs' },
+      { af: 'vyeblare', en: 'fig leaves' },
+      { af: 'tamaties', en: 'tomatoes' },
+      { af: 'tuinmuur', en: 'garden wall' }
+    ];
+
     const cards = Array.from(document.querySelectorAll('.card'));
     const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
     const panels = Array.from(document.querySelectorAll('.level-panel'));
@@ -669,7 +971,45 @@
     const showAllBtn = document.getElementById('showAllBtn');
     const randomBox = document.getElementById('randomBox');
     const randomText = document.getElementById('randomText');
+    const modeButtons = Array.from(document.querySelectorAll('.mode-btn'));
+    const vocabModes = Array.from(document.querySelectorAll('.vocab-mode'));
+    const flashcardBox = document.getElementById('flashcardBox');
+    const flashLabel = document.getElementById('flashLabel');
+    const flashWord = document.getElementById('flashWord');
+    const flashSub = document.getElementById('flashSub');
+    const flashProgress = document.getElementById('flashProgress');
+    const prevFlashBtn = document.getElementById('prevFlashBtn');
+    const nextFlashBtn = document.getElementById('nextFlashBtn');
+    const shuffleFlashBtn = document.getElementById('shuffleFlashBtn');
+    const matchAfList = document.getElementById('matchAfList');
+    const matchEnList = document.getElementById('matchEnList');
+    const matchProgress = document.getElementById('matchProgress');
+    const newMatchBtn = document.getElementById('newMatchBtn');
+    const typeClue = document.getElementById('typeClue');
+    const typeInput = document.getElementById('typeInput');
+    const checkTypeBtn = document.getElementById('checkTypeBtn');
+    const nextTypeBtn = document.getElementById('nextTypeBtn');
+    const typeFeedback = document.getElementById('typeFeedback');
+    const typeProgress = document.getElementById('typeProgress');
     let showingAll = false;
+    let flashDeck = [...vocabWords];
+    let flashIndex = 0;
+    let flashShowingEnglish = false;
+    let matchSet = [];
+    let selectedAf = null;
+    let selectedEn = null;
+    let matchedCount = 0;
+    let typeDeck = [...vocabWords];
+    let typeIndex = 0;
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
 
     function lockCardsForLesson() {
       cards.forEach(card => {
@@ -754,7 +1094,176 @@
       randomBox.classList.add('show');
     });
 
+    function setVocabMode(modeName) {
+      modeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === modeName));
+      vocabModes.forEach(mode => mode.classList.toggle('active', mode.id === `mode-${modeName}`));
+      if (modeName === 'match') buildMatchSet();
+      if (modeName === 'type') {
+        typeInput.focus();
+      }
+    }
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => setVocabMode(btn.dataset.mode));
+    });
+
+    function renderFlashcard() {
+      const current = flashDeck[flashIndex];
+      flashLabel.textContent = flashShowingEnglish ? 'English' : 'Afrikaans';
+      flashWord.textContent = flashShowingEnglish ? current.en : current.af;
+      flashSub.textContent = flashShowingEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engels te wys';
+      flashProgress.textContent = `${flashIndex + 1} / ${flashDeck.length}`;
+      flashcardBox.setAttribute('aria-label', flashShowingEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engels te wys');
+    }
+
+    function nextFlash() {
+      flashIndex = (flashIndex + 1) % flashDeck.length;
+      flashShowingEnglish = false;
+      renderFlashcard();
+    }
+
+    function prevFlash() {
+      flashIndex = (flashIndex - 1 + flashDeck.length) % flashDeck.length;
+      flashShowingEnglish = false;
+      renderFlashcard();
+    }
+
+    flashcardBox.addEventListener('click', () => {
+      flashShowingEnglish = !flashShowingEnglish;
+      renderFlashcard();
+    });
+
+    flashcardBox.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        flashShowingEnglish = !flashShowingEnglish;
+        renderFlashcard();
+      }
+    });
+
+    nextFlashBtn.addEventListener('click', nextFlash);
+    prevFlashBtn.addEventListener('click', prevFlash);
+    shuffleFlashBtn.addEventListener('click', () => {
+      flashDeck = shuffleArray(vocabWords);
+      flashIndex = 0;
+      flashShowingEnglish = false;
+      renderFlashcard();
+    });
+
+    function buildMatchSet() {
+      matchSet = shuffleArray(vocabWords).slice(0, 8);
+      const shuffledEnglish = shuffleArray(matchSet);
+      selectedAf = null;
+      selectedEn = null;
+      matchedCount = 0;
+      matchProgress.textContent = '0 / 8 reg';
+      matchAfList.innerHTML = '';
+      matchEnList.innerHTML = '';
+
+      matchSet.forEach(word => {
+        const button = document.createElement('button');
+        button.className = 'match-item';
+        button.type = 'button';
+        button.textContent = word.af;
+        button.dataset.af = word.af;
+        button.addEventListener('click', () => chooseMatch(button, 'af'));
+        matchAfList.appendChild(button);
+      });
+
+      shuffledEnglish.forEach(word => {
+        const button = document.createElement('button');
+        button.className = 'match-item';
+        button.type = 'button';
+        button.textContent = word.en;
+        button.dataset.af = word.af;
+        button.addEventListener('click', () => chooseMatch(button, 'en'));
+        matchEnList.appendChild(button);
+      });
+    }
+
+    function chooseMatch(button, side) {
+      if (button.classList.contains('matched')) return;
+
+      if (side === 'af') {
+        document.querySelectorAll('#matchAfList .match-item').forEach(btn => btn.classList.remove('selected'));
+        selectedAf = button;
+      } else {
+        document.querySelectorAll('#matchEnList .match-item').forEach(btn => btn.classList.remove('selected'));
+        selectedEn = button;
+      }
+
+      button.classList.add('selected');
+      checkMatchPair();
+    }
+
+    function checkMatchPair() {
+      if (!selectedAf || !selectedEn) return;
+
+      if (selectedAf.dataset.af === selectedEn.dataset.af) {
+        selectedAf.classList.remove('selected');
+        selectedEn.classList.remove('selected');
+        selectedAf.classList.add('matched');
+        selectedEn.classList.add('matched');
+        matchedCount += 1;
+        matchProgress.textContent = `${matchedCount} / 8 reg`;
+        selectedAf = null;
+        selectedEn = null;
+      } else {
+        selectedAf.classList.add('wrong');
+        selectedEn.classList.add('wrong');
+        setTimeout(() => {
+          selectedAf.classList.remove('selected', 'wrong');
+          selectedEn.classList.remove('selected', 'wrong');
+          selectedAf = null;
+          selectedEn = null;
+        }, 650);
+      }
+    }
+
+    newMatchBtn.addEventListener('click', buildMatchSet);
+
+    function renderTypeQuestion() {
+      const current = typeDeck[typeIndex];
+      typeClue.textContent = current.en;
+      typeProgress.textContent = `${typeIndex + 1} / ${typeDeck.length}`;
+      typeFeedback.textContent = 'Tik die Afrikaans woord.';
+      typeFeedback.style.background = 'var(--soft-yellow)';
+      typeInput.value = '';
+      typeInput.focus();
+    }
+
+    function checkTypeAnswer() {
+      const current = typeDeck[typeIndex];
+      const answer = typeInput.value.trim().toLowerCase();
+      const correct = current.af.toLowerCase();
+
+      if (answer === correct) {
+        typeFeedback.textContent = `Reg! ${current.af} = ${current.en}`;
+        typeFeedback.style.background = 'var(--soft-green)';
+      } else {
+        typeFeedback.textContent = `Amper. Antwoord: ${current.af}`;
+        typeFeedback.style.background = 'var(--soft-pink)';
+      }
+    }
+
+    function nextTypeQuestion() {
+      typeIndex = (typeIndex + 1) % typeDeck.length;
+      renderTypeQuestion();
+    }
+
+    checkTypeBtn.addEventListener('click', checkTypeAnswer);
+    nextTypeBtn.addEventListener('click', nextTypeQuestion);
+    typeInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        checkTypeAnswer();
+      }
+    });
+
     lockCardsForLesson();
+    renderFlashcard();
+    buildMatchSet();
+    typeDeck = shuffleArray(vocabWords);
+    renderTypeQuestion();
 
     document.addEventListener('keydown', (event) => {
       const activeIndex = tabButtons.findIndex(btn => btn.getAttribute('aria-selected') === 'true');
