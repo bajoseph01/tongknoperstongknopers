@@ -101,6 +101,9 @@
 
     button:hover, .drag-word:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
     .tab-btn.active, .mode-btn.active { background: var(--soft-yellow); transform: translate(3px, 3px) rotate(-1deg); box-shadow: 1px 1px 0 var(--ink); }
+    #tab-vocab { background: #7f1d1d; color: #fff7ed; border-color: #3b0a0a; }
+    #tab-vocab.active { background: #450a0a; color: #fff7ed; box-shadow: 1px 1px 0 var(--ink); }
+    #tab-vocab:hover { background: #991b1b; color: #ffffff; }
     .action-btn { background: var(--soft-green); }
     .action-btn.secondary { background: var(--soft-purple); }
     .action-btn.print { background: var(--soft-pink); }
@@ -145,7 +148,9 @@
     .mode-btn:nth-child(1) { background: var(--soft-blue); }
     .mode-btn:nth-child(2) { background: var(--soft-green); }
     .mode-btn:nth-child(3) { background: var(--soft-pink); }
-    .mode-btn:nth-child(4) { background: var(--soft-purple); }
+    .mode-btn[data-mode="sentence"] { background: #14532d; color: #f0fdf4; border-color: #052e16; }
+    .mode-btn[data-mode="sentence"].active { background: #052e16; color: #dcfce7; }
+    .mode-btn[data-mode="sentence"]:hover { background: #166534; color: #ffffff; }
     .vocab-help { margin: 0 0 14px; font-weight: 800; line-height: 1.4; }
 
     .flashcard-box { min-height: 250px; display: grid; place-items: center; text-align: center; border: 4px dashed var(--ink); border-radius: 22px; background: repeating-linear-gradient(0deg, #fffefa 0 29px, rgba(73,124,170,.14) 30px, #fffefa 31px); padding: 24px; cursor: pointer; user-select: none; }
