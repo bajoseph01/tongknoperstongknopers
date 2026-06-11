@@ -16,23 +16,17 @@
       --soft-green: #daf7d7;
       --soft-purple: #eee3ff;
       --shadow: rgba(0, 0, 0, 0.18);
-      --tab-bg: #ffffff;
-      --tab-active: #fff1a8;
       --focus: #0b6fba;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--ink);
       font-family: "Trebuchet MS", "Comic Sans MS", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 15px 18px, rgba(0,0,0,0.05) 1px, transparent 1.5px),
-        linear-gradient(var(--paper), var(--paper));
+      background: radial-gradient(circle at 15px 18px, rgba(0,0,0,0.05) 1px, transparent 1.5px), var(--paper);
       background-size: 24px 24px, auto;
     }
 
@@ -40,31 +34,15 @@
       width: min(1180px, calc(100% - 28px));
       margin: 18px auto;
       position: relative;
-      background:
-        linear-gradient(90deg, transparent 0 54px, var(--margin-line) 55px, transparent 56px),
-        repeating-linear-gradient(0deg, var(--paper) 0 31px, var(--line) 32px, var(--paper) 33px);
+      background: linear-gradient(90deg, transparent 0 54px, var(--margin-line) 55px, transparent 56px), repeating-linear-gradient(0deg, var(--paper) 0 31px, var(--line) 32px, var(--paper) 33px);
       border: 4px solid var(--ink);
       border-radius: 24px;
       box-shadow: 8px 8px 0 var(--shadow);
       overflow: hidden;
     }
 
-    .doodle-border {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: 18px;
-    }
-
-    .doodle {
-      position: absolute;
-      font-size: 32px;
-      transform: rotate(-8deg);
-      filter: grayscale(8%);
-      opacity: 0.95;
-    }
-
-    .d1 { top: 18px; right: 28px; }
+    .doodle { position: absolute; font-size: 32px; opacity: .95; pointer-events: none; }
+    .d1 { top: 18px; right: 28px; transform: rotate(-8deg); }
     .d2 { top: 128px; left: 12px; transform: rotate(10deg); }
     .d3 { bottom: 28px; right: 42px; transform: rotate(8deg); }
     .d4 { bottom: 40px; left: 20px; transform: rotate(-12deg); }
@@ -77,60 +55,42 @@
       align-items: center;
     }
 
-    .title-block h1 {
+    h1 {
       margin: 0;
       font-size: clamp(2rem, 4vw, 4.1rem);
-      line-height: 0.95;
+      line-height: .95;
       letter-spacing: -1px;
       text-transform: uppercase;
       text-shadow: 3px 3px 0 var(--soft-yellow);
     }
 
-    .title-block p {
-      margin: 10px 0 0;
-      font-size: clamp(1rem, 1.8vw, 1.28rem);
-      max-width: 760px;
-      line-height: 1.38;
+    .title-block p { margin: 10px 0 0; font-size: clamp(1rem, 1.8vw, 1.28rem); max-width: 760px; line-height: 1.38; }
+
+    .teacher-note, .vocab-shell, .card, .match-column, .type-box, .sentence-box {
+      border: 3px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
     }
 
     .teacher-note {
       background: var(--soft-blue);
-      border: 3px solid var(--ink);
       border-radius: 18px;
-      box-shadow: 5px 5px 0 var(--ink);
       padding: 14px 16px;
       width: min(280px, 100%);
       transform: rotate(1.4deg);
-      font-size: 0.98rem;
+      font-size: .98rem;
       line-height: 1.35;
     }
 
-    .teacher-note strong {
-      display: block;
-      font-size: 1.1rem;
-      margin-bottom: 5px;
-    }
+    .teacher-note strong { display: block; font-size: 1.1rem; margin-bottom: 5px; }
+    .controls-wrap { padding: 0 34px 18px 74px; }
+    .tabs, .action-row, .mode-row, .small-row, .word-bank { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .action-row { margin-top: 14px; }
 
-    .controls-wrap {
-      padding: 0 34px 18px 74px;
-    }
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .tab-btn,
-    .action-btn,
-    .mode-btn,
-    .small-btn,
-    .match-item {
+    button, .drag-word {
       appearance: none;
       border: 3px solid var(--ink);
       border-radius: 999px;
-      background: var(--tab-bg);
+      background: #fff;
       color: var(--ink);
       padding: 10px 16px;
       font: 800 1rem/1 "Trebuchet MS", system-ui, sans-serif;
@@ -139,587 +99,131 @@
       transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
     }
 
-    .tab-btn:hover,
-    .action-btn:hover,
-    .mode-btn:hover,
-    .small-btn:hover,
-    .match-item:hover {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 var(--ink);
-    }
+    button:hover, .drag-word:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .tab-btn.active, .mode-btn.active { background: var(--soft-yellow); transform: translate(3px, 3px) rotate(-1deg); box-shadow: 1px 1px 0 var(--ink); }
+    .action-btn { background: var(--soft-green); }
+    .action-btn.secondary { background: var(--soft-purple); }
+    .action-btn.print { background: var(--soft-pink); }
 
-    .tab-btn.active,
-    .mode-btn.active {
-      background: var(--tab-active);
-      transform: translate(3px, 3px) rotate(-1deg);
-      box-shadow: 1px 1px 0 var(--ink);
-    }
+    main { padding: 0 34px 34px 74px; }
+    .level-panel, .vocab-mode { display: none; animation: popIn 220ms ease both; }
+    .level-panel.active, .vocab-mode.active { display: block; }
+    @keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-    .action-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
+    .level-heading { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 4px 0 16px; }
+    .level-heading h2 { margin: 0; font-size: clamp(1.5rem, 2.7vw, 2.4rem); background: #fff; border: 3px solid var(--ink); border-radius: 16px; padding: 8px 14px; box-shadow: 4px 4px 0 var(--ink); transform: rotate(-1deg); }
+    .level-heading span { font-weight: 800; background: var(--soft-yellow); border: 2px dashed var(--ink); border-radius: 14px; padding: 8px 12px; }
 
-    .action-btn {
-      background: var(--soft-green);
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+    .card { position: relative; min-height: 190px; background: #fffefa; border-radius: 22px; padding: 16px; overflow: hidden; cursor: pointer; }
+    .card:hover { background: #fff7cf; }
+    .card:nth-child(3n+1) { transform: rotate(-.5deg); }
+    .card:nth-child(3n+2) { transform: rotate(.7deg); }
+    .card:nth-child(3n+3) { transform: rotate(-.2deg); }
+    .card::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 28px, rgba(73,124,170,.12) 29px, transparent 30px); pointer-events: none; }
+    .card.locked { background: #f6f6f6; }
+    .card.locked::after { content: "Klik om te onthul"; position: absolute; inset: 14px; z-index: 3; display: grid; place-items: center; border: 3px dashed var(--ink); border-radius: 17px; background: rgba(255,253,246,.88); font-size: clamp(1.15rem, 2vw, 1.7rem); font-weight: 950; text-align: center; transform: rotate(-1deg); }
+    .card.locked .badge, .card.locked .phrase, .card.locked .hint { filter: blur(7px); opacity: .24; user-select: none; }
+    .card.translated { background: #f4fff0; }
+    .card.translated .badge { background: var(--soft-green); }
+    .card.translated .phrase::after { content: "English"; display: inline-block; margin-left: 8px; transform: translateY(-4px) rotate(-2deg); border: 2px solid var(--ink); border-radius: 999px; background: var(--soft-blue); padding: 3px 7px; font-size: .72rem; font-weight: 900; vertical-align: middle; }
 
-    .action-btn.secondary {
-      background: var(--soft-purple);
-    }
-
-    .action-btn.print {
-      background: var(--soft-pink);
-    }
-
-    main {
-      padding: 0 34px 34px 74px;
-    }
-
-    .level-panel {
-      display: none;
-      animation: popIn 220ms ease both;
-    }
-
-    .level-panel.active {
-      display: block;
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(8px) scale(0.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .level-heading {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      margin: 4px 0 16px;
-    }
-
-    .level-heading h2 {
-      margin: 0;
-      font-size: clamp(1.5rem, 2.7vw, 2.4rem);
-      background: #fff;
-      border: 3px solid var(--ink);
-      border-radius: 16px;
-      padding: 8px 14px;
-      box-shadow: 4px 4px 0 var(--ink);
-      transform: rotate(-1deg);
-    }
-
-    .level-heading span {
-      font-weight: 800;
-      background: var(--soft-yellow);
-      border: 2px dashed var(--ink);
-      border-radius: 14px;
-      padding: 8px 12px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      position: relative;
-      min-height: 190px;
-      background: #fffefa;
-      border: 3px solid var(--ink);
-      border-radius: 22px;
-      padding: 16px 16px 14px;
-      box-shadow: 6px 6px 0 var(--ink);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
-    }
-
-    .card:hover {
-      box-shadow: 4px 4px 0 var(--ink);
-      background: #fff7cf;
-    }
-
-    .card:nth-child(3n+1) { transform: rotate(-0.5deg); }
-    .card:nth-child(3n+2) { transform: rotate(0.7deg); }
-    .card:nth-child(3n+3) { transform: rotate(-0.2deg); }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, transparent 0 28px, rgba(73,124,170,0.12) 29px, transparent 30px);
-      pointer-events: none;
-    }
-
-    .card.locked {
-      background: #f6f6f6;
-    }
-
-    .card.locked::after {
-      content: "Klik om te onthul";
-      position: absolute;
-      inset: 14px;
-      z-index: 3;
-      display: grid;
-      place-items: center;
-      border: 3px dashed var(--ink);
-      border-radius: 17px;
-      background: rgba(255, 253, 246, 0.88);
-      font-size: clamp(1.15rem, 2vw, 1.7rem);
-      font-weight: 950;
-      text-align: center;
-      transform: rotate(-1deg);
-    }
-
-    .card.locked .badge,
-    .card.locked .phrase,
-    .card.locked .hint {
-      filter: blur(7px);
-      opacity: 0.24;
-      user-select: none;
-    }
-
-    .card.translated {
-      background: #f4fff0;
-    }
-
-    .card.translated .badge {
-      background: var(--soft-green);
-    }
-
-    .card.translated .phrase::after {
-      content: "English";
-      display: inline-block;
-      margin-left: 8px;
-      transform: translateY(-4px) rotate(-2deg);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      background: var(--soft-blue);
-      padding: 3px 7px;
-      font-size: 0.72rem;
-      font-weight: 900;
-      vertical-align: middle;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--soft-yellow);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 5px 9px;
-      font-size: 0.86rem;
-      font-weight: 900;
-      position: relative;
-      z-index: 1;
-    }
-
-    .phrase {
-      position: relative;
-      z-index: 1;
-      margin: 16px 0 10px;
-      font-size: clamp(1.3rem, 2.2vw, 2rem);
-      line-height: 1.14;
-      font-weight: 900;
-    }
-
-    .hint {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 12px;
-    }
-
-    .chip {
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      background: var(--soft-blue);
-      padding: 5px 8px;
-      font-size: 0.86rem;
-      font-weight: 800;
-    }
-
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--soft-yellow); border: 2px solid var(--ink); border-radius: 999px; padding: 5px 9px; font-size: .86rem; font-weight: 900; position: relative; z-index: 1; }
+    .phrase { position: relative; z-index: 1; margin: 16px 0 10px; font-size: clamp(1.3rem, 2.2vw, 2rem); line-height: 1.14; font-weight: 900; }
+    .hint { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .chip { border: 2px solid var(--ink); border-radius: 999px; background: var(--soft-blue); padding: 5px 8px; font-size: .86rem; font-weight: 800; }
     .chip.sound { background: var(--soft-pink); }
     .chip.level { background: var(--soft-green); }
 
-    .random-box {
-      display: none;
-      margin: 18px 0 0;
-      background: #fff;
-      border: 4px solid var(--ink);
-      border-radius: 24px;
-      box-shadow: 6px 6px 0 var(--ink);
-      padding: 18px;
-    }
+    .random-box { display: none; margin: 18px 0 0; background: #fff; border: 4px solid var(--ink); border-radius: 24px; box-shadow: 6px 6px 0 var(--ink); padding: 18px; }
+    .random-box.show { display: block; }
+    .random-label { display: inline-block; background: var(--soft-purple); border: 2px solid var(--ink); border-radius: 999px; padding: 6px 10px; font-weight: 900; margin-bottom: 10px; }
+    .random-text { font-size: clamp(1.6rem, 4vw, 3.4rem); line-height: 1.1; font-weight: 950; margin: 0; }
 
-    .random-box.show {
-      display: block;
-      animation: popIn 200ms ease both;
-    }
-
-    .random-label {
-      display: inline-block;
-      background: var(--soft-purple);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .random-text {
-      font-size: clamp(1.6rem, 4vw, 3.4rem);
-      line-height: 1.1;
-      font-weight: 950;
-      margin: 0;
-    }
-
-    .vocab-shell {
-      background: #fff;
-      border: 4px solid var(--ink);
-      border-radius: 24px;
-      box-shadow: 7px 7px 0 var(--ink);
-      padding: 18px;
-      overflow: hidden;
-    }
-
-    .mode-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
+    .vocab-shell { background: #fff; border-radius: 24px; padding: 18px; overflow: hidden; }
+    .mode-row { margin-bottom: 18px; }
     .mode-btn:nth-child(1) { background: var(--soft-blue); }
     .mode-btn:nth-child(2) { background: var(--soft-green); }
     .mode-btn:nth-child(3) { background: var(--soft-pink); }
+    .mode-btn:nth-child(4) { background: var(--soft-purple); }
+    .vocab-help { margin: 0 0 14px; font-weight: 800; line-height: 1.4; }
 
-    .vocab-mode {
-      display: none;
-      animation: popIn 180ms ease both;
-    }
+    .flashcard-box { min-height: 250px; display: grid; place-items: center; text-align: center; border: 4px dashed var(--ink); border-radius: 22px; background: repeating-linear-gradient(0deg, #fffefa 0 29px, rgba(73,124,170,.14) 30px, #fffefa 31px); padding: 24px; cursor: pointer; user-select: none; }
+    .flash-label, .type-clue-label, .sentence-label { display: inline-block; background: var(--soft-yellow); border: 2px solid var(--ink); border-radius: 999px; padding: 6px 10px; font-weight: 900; margin-bottom: 12px; }
+    .flash-word, .type-clue { font-size: clamp(2.2rem, 6vw, 5rem); font-weight: 950; line-height: 1.05; margin: 0; }
+    .flash-sub { margin-top: 14px; font-weight: 800; opacity: .8; }
+    .small-row { margin-top: 14px; }
+    .small-btn { background: var(--soft-purple); border-radius: 14px; }
+    .progress-pill, .feedback-pill { display: inline-flex; align-items: center; min-height: 42px; border: 3px solid var(--ink); border-radius: 999px; padding: 8px 12px; font-weight: 900; background: var(--soft-yellow); }
 
-    .vocab-mode.active {
-      display: block;
-    }
+    .match-area { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .match-column { background: #fffefa; border-radius: 20px; padding: 12px; }
+    .match-column h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .match-list { display: grid; gap: 9px; }
+    .match-item { width: 100%; text-align: left; border-radius: 14px; background: #fff; box-shadow: 3px 3px 0 var(--ink); }
+    .match-item.selected { background: var(--soft-yellow); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+    .match-item.matched { background: var(--soft-green); opacity: .72; cursor: default; text-decoration: line-through; }
+    .match-item.wrong { background: var(--soft-pink); }
 
-    .vocab-help {
-      margin: 0 0 14px;
-      font-weight: 800;
-      line-height: 1.4;
-    }
+    .type-box, .sentence-box { background: #fffefa; border-radius: 22px; padding: 18px; }
+    .type-input-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+    .type-input { flex: 1 1 240px; border: 3px solid var(--ink); border-radius: 14px; padding: 12px 14px; font: 900 1.25rem/1.2 "Trebuchet MS", system-ui, sans-serif; background: #fff; box-shadow: 3px 3px 0 var(--ink); }
 
-    .flashcard-box {
-      min-height: 250px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 4px dashed var(--ink);
-      border-radius: 22px;
-      background:
-        repeating-linear-gradient(0deg, #fffefa 0 29px, rgba(73,124,170,0.14) 30px, #fffefa 31px);
-      padding: 24px;
-      cursor: pointer;
-      user-select: none;
-    }
+    .sentence-text { font-size: clamp(1.5rem, 3.3vw, 3rem); line-height: 1.35; font-weight: 950; margin: 8px 0 16px; }
+    .sentence-gap { display: inline-flex; align-items: center; justify-content: center; min-width: 180px; min-height: 52px; padding: 6px 14px; margin: 0 6px; border: 4px dashed var(--ink); border-radius: 16px; background: #fff; vertical-align: middle; }
+    .sentence-gap.ready { background: var(--soft-blue); }
+    .sentence-gap.correct { background: var(--soft-green); border-style: solid; }
+    .sentence-gap.wrong { background: var(--soft-pink); }
+    .word-bank { margin-top: 12px; padding: 12px; border: 3px dashed var(--ink); border-radius: 18px; background: #fff; }
+    .drag-word { background: var(--soft-yellow); border-radius: 14px; user-select: none; }
+    .drag-word.selected { background: var(--soft-blue); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+    .drag-word.used { opacity: .35; pointer-events: none; }
 
-    .flash-label {
-      display: inline-block;
-      background: var(--soft-yellow);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .flash-word {
-      font-size: clamp(2.5rem, 7vw, 5.6rem);
-      font-weight: 950;
-      line-height: 1;
-      margin: 0;
-    }
-
-    .flash-sub {
-      margin-top: 14px;
-      font-weight: 800;
-      opacity: 0.8;
-    }
-
-    .small-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-top: 14px;
-    }
-
-    .small-btn {
-      background: var(--soft-purple);
-      border-radius: 14px;
-    }
-
-    .progress-pill,
-    .feedback-pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 42px;
-      border: 3px solid var(--ink);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 900;
-      background: var(--soft-yellow);
-    }
-
-    .match-area {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .match-column {
-      background: #fffefa;
-      border: 3px solid var(--ink);
-      border-radius: 20px;
-      padding: 12px;
-      box-shadow: 4px 4px 0 var(--ink);
-    }
-
-    .match-column h3 {
-      margin: 0 0 10px;
-      font-size: 1.2rem;
-    }
-
-    .match-list {
-      display: grid;
-      gap: 9px;
-    }
-
-    .match-item {
-      width: 100%;
-      text-align: left;
-      border-radius: 14px;
-      background: #fff;
-      box-shadow: 3px 3px 0 var(--ink);
-    }
-
-    .match-item.selected {
-      background: var(--soft-yellow);
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-
-    .match-item.matched {
-      background: var(--soft-green);
-      opacity: 0.72;
-      cursor: default;
-      text-decoration: line-through;
-    }
-
-    .match-item.wrong {
-      background: var(--soft-pink);
-    }
-
-    .type-box {
-      background: #fffefa;
-      border: 3px solid var(--ink);
-      border-radius: 22px;
-      box-shadow: 5px 5px 0 var(--ink);
-      padding: 18px;
-    }
-
-    .type-clue-label {
-      display: inline-block;
-      background: var(--soft-purple);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .type-clue {
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin: 0 0 16px;
-      font-weight: 950;
-      line-height: 1.05;
-    }
-
-    .type-input-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .type-input {
-      flex: 1 1 240px;
-      border: 3px solid var(--ink);
-      border-radius: 14px;
-      padding: 12px 14px;
-      font: 900 1.25rem/1.2 "Trebuchet MS", system-ui, sans-serif;
-      background: #fff;
-      box-shadow: 3px 3px 0 var(--ink);
-    }
-
-    .mini-routine {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 12px;
-    }
-
-    .routine-step {
-      background: var(--soft-blue);
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      padding: 12px;
-      box-shadow: 4px 4px 0 var(--ink);
-      font-weight: 800;
-    }
-
+    .mini-routine { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+    .routine-step { background: var(--soft-blue); border: 3px solid var(--ink); border-radius: 18px; padding: 12px; box-shadow: 4px 4px 0 var(--ink); font-weight: 800; }
     .routine-step:nth-child(2) { background: var(--soft-green); }
     .routine-step:nth-child(3) { background: var(--soft-yellow); }
     .routine-step:nth-child(4) { background: var(--soft-pink); }
+    footer { padding: 0 34px 28px 74px; font-size: .95rem; font-weight: 800; opacity: .88; }
 
-    footer {
-      padding: 0 34px 28px 74px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      opacity: 0.88;
-    }
-
-    button:focus-visible,
-    .card:focus-visible,
-    .flashcard-box:focus-visible,
-    .type-input:focus-visible {
-      outline: 4px solid var(--focus);
-      outline-offset: 3px;
-    }
+    button:focus-visible, .card:focus-visible, .flashcard-box:focus-visible, .type-input:focus-visible, .sentence-gap:focus-visible, .drag-word:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
 
     @media (max-width: 760px) {
-      .page {
-        width: calc(100% - 16px);
-        margin: 8px auto;
-        border-radius: 18px;
-      }
-
-      header {
-        grid-template-columns: 1fr;
-        padding: 24px 18px 14px 58px;
-      }
-
-      .teacher-note {
-        width: 100%;
-        transform: none;
-      }
-
-      .controls-wrap,
-      main,
-      footer {
-        padding-left: 58px;
-        padding-right: 18px;
-      }
-
-      .card {
-        min-height: 160px;
-      }
-
-      .match-area {
-        grid-template-columns: 1fr;
-      }
+      .page { width: calc(100% - 16px); margin: 8px auto; border-radius: 18px; }
+      header { grid-template-columns: 1fr; padding: 24px 18px 14px 58px; }
+      .teacher-note { width: 100%; transform: none; }
+      .controls-wrap, main, footer { padding-left: 58px; padding-right: 18px; }
+      .card { min-height: 160px; }
+      .match-area { grid-template-columns: 1fr; }
+      .sentence-gap { min-width: 140px; }
     }
 
     @media print {
-      body {
-        background: white;
-      }
-
-      .page {
-        width: 100%;
-        margin: 0;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      .doodle-border,
-      .controls-wrap,
-      .random-box,
-      footer {
-        display: none !important;
-      }
-
-      header {
-        padding: 12mm 12mm 6mm;
-        grid-template-columns: 1fr;
-      }
-
-      main {
-        padding: 0 12mm 12mm;
-      }
-
-      .level-panel {
-        display: block !important;
-        break-after: page;
-      }
-
-      .card,
-      .vocab-shell,
-      .match-column,
-      .type-box {
-        box-shadow: none;
-        break-inside: avoid;
-      }
-
-      .card.locked .badge,
-      .card.locked .phrase,
-      .card.locked .hint {
-        filter: none;
-        opacity: 1;
-      }
-
-      .card.locked::after,
-      .mode-row,
-      .small-row,
-      .type-input-row {
-        display: none;
-      }
-
-      .vocab-mode {
-        display: block !important;
-      }
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: none; border-radius: 0; box-shadow: none; }
+      .doodle, .controls-wrap, .random-box, footer, .mode-row, .small-row, .type-input-row { display: none !important; }
+      header { padding: 12mm 12mm 6mm; grid-template-columns: 1fr; }
+      main { padding: 0 12mm 12mm; }
+      .level-panel, .vocab-mode { display: block !important; break-after: page; }
+      .card, .vocab-shell, .match-column, .type-box, .sentence-box { box-shadow: none; break-inside: avoid; }
+      .card.locked .badge, .card.locked .phrase, .card.locked .hint { filter: none; opacity: 1; }
+      .card.locked::after { display: none; }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="doodle-border" aria-hidden="true">
-      <div class="doodle d1">✏️</div>
-      <div class="doodle d2">💬</div>
-      <div class="doodle d3">⭐</div>
-      <div class="doodle d4">🎲</div>
-    </div>
+    <div class="doodle d1">✏️</div>
+    <div class="doodle d2">💬</div>
+    <div class="doodle d3">⭐</div>
+    <div class="doodle d4">🎲</div>
 
     <header>
       <section class="title-block">
         <h1>Afrikaanse Tongknopers</h1>
         <p>Lees stadig, sê dit duidelik, en probeer dan vinniger. Eerste klik wys die tongknoper. Daarna klik jy weer om Afrikaans ↔ English te wissel.</p>
       </section>
-
-      <aside class="teacher-note">
-        <strong>Onderwyser-wenk</strong>
-        1) Stadig en duidelik<br />
-        2) Normale spoed<br />
-        3) Vinnig sonder foute
-      </aside>
+      <aside class="teacher-note"><strong>Onderwyser-wenk</strong>1) Stadig en duidelik<br />2) Normale spoed<br />3) Vinnig sonder foute</aside>
     </header>
 
     <section class="controls-wrap" aria-label="Vlakke en aksies">
@@ -729,239 +233,122 @@
         <button class="tab-btn" id="tab-hard" role="tab" aria-selected="false" aria-controls="panel-hard" data-tab="hard">Uitdaging</button>
         <button class="tab-btn" id="tab-vocab" role="tab" aria-selected="false" aria-controls="panel-vocab" data-tab="vocab">Woordeskat</button>
       </div>
-
       <div class="action-row">
         <button class="action-btn" id="randomBtn" type="button">🎲 Kies een vir die klas</button>
         <button class="action-btn secondary" id="showAllBtn" type="button">👀 Wys alle vlakke</button>
         <button class="action-btn print" onclick="window.print()" type="button">🖨️ Druk</button>
       </div>
-
-      <div class="random-box" id="randomBox" aria-live="polite">
-        <span class="random-label">Klas-uitdaging</span>
-        <p class="random-text" id="randomText"></p>
-      </div>
+      <div class="random-box" id="randomBox" aria-live="polite"><span class="random-label">Klas-uitdaging</span><p class="random-text" id="randomText"></p></div>
     </section>
 
     <main>
       <section class="level-panel active" id="panel-easy" role="tabpanel" aria-labelledby="tab-easy" data-level="easy">
-        <div class="level-heading">
-          <h2>Maklik</h2>
-          <span>Beste vir Grade 4–5 FAL</span>
-        </div>
-
+        <div class="level-heading"><h2>Maklik</h2><span>Beste vir Grade 4–5 FAL</span></div>
         <div class="grid">
-          <article class="card" data-phrase="Klein Koos kook koue kos." data-english="Small Koos cooks cold food." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">1 · K-klank</span>
-            <p class="phrase">Klein Koos kook koue kos.</p>
-            <div class="hint"><span class="chip sound">k</span><span class="chip level">stadig begin</span></div>
-          </article>
-
-          <article class="card" data-phrase="Pieter pluk pers perskes." data-english="Pieter picks purple peaches." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">2 · P-klank</span>
-            <p class="phrase">Pieter pluk pers perskes.</p>
-            <div class="hint"><span class="chip sound">p</span><span class="chip level">lippe werk</span></div>
-          </article>
-
-          <article class="card" data-phrase="Die kat krap aan die krat." data-english="The cat scratches at the crate." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">3 · KR-klank</span>
-            <p class="phrase">Die kat krap aan die krat.</p>
-            <div class="hint"><span class="chip sound">kr</span><span class="chip level">duidelike r</span></div>
-          </article>
-
-          <article class="card" data-phrase="Sannie sê sy sal sewe sakke sout sleep." data-english="Sannie says she will carry seven bags of salt." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">4 · S-klank</span>
-            <p class="phrase">Sannie sê sy sal sewe sakke sout sleep.</p>
-            <div class="hint"><span class="chip sound">s</span><span class="chip level">klassieker</span></div>
-          </article>
-
-          <article class="card" data-phrase="Mamma maak mooi muffins." data-english="Mum makes pretty muffins." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">5 · M-klank</span>
-            <p class="phrase">Mamma maak mooi muffins.</p>
-            <div class="hint"><span class="chip sound">m</span><span class="chip level">warm op</span></div>
-          </article>
+          <article class="card" data-phrase="Klein Koos kook koue kos." data-english="Small Koos cooks cold food." tabindex="0" role="button"><span class="badge">1 · K-klank</span><p class="phrase">Klein Koos kook koue kos.</p><div class="hint"><span class="chip sound">k</span><span class="chip level">stadig begin</span></div></article>
+          <article class="card" data-phrase="Pieter pluk pers perskes." data-english="Pieter picks purple peaches." tabindex="0" role="button"><span class="badge">2 · P-klank</span><p class="phrase">Pieter pluk pers perskes.</p><div class="hint"><span class="chip sound">p</span><span class="chip level">lippe werk</span></div></article>
+          <article class="card" data-phrase="Die kat krap aan die krat." data-english="The cat scratches at the crate." tabindex="0" role="button"><span class="badge">3 · KR-klank</span><p class="phrase">Die kat krap aan die krat.</p><div class="hint"><span class="chip sound">kr</span><span class="chip level">duidelike r</span></div></article>
+          <article class="card" data-phrase="Sannie sê sy sal sewe sakke sout sleep." data-english="Sannie says she will carry seven bags of salt." tabindex="0" role="button"><span class="badge">4 · S-klank</span><p class="phrase">Sannie sê sy sal sewe sakke sout sleep.</p><div class="hint"><span class="chip sound">s</span><span class="chip level">klassieker</span></div></article>
+          <article class="card" data-phrase="Mamma maak mooi muffins." data-english="Mum makes pretty muffins." tabindex="0" role="button"><span class="badge">5 · M-klank</span><p class="phrase">Mamma maak mooi muffins.</p><div class="hint"><span class="chip sound">m</span><span class="chip level">warm op</span></div></article>
         </div>
       </section>
 
       <section class="level-panel" id="panel-medium" role="tabpanel" aria-labelledby="tab-medium" data-level="medium">
-        <div class="level-heading">
-          <h2>Gemiddeld</h2>
-          <span>Beste vir Grade 5–6</span>
-        </div>
-
+        <div class="level-heading"><h2>Gemiddeld</h2><span>Beste vir Grade 5–6</span></div>
         <div class="grid">
-          <article class="card" data-phrase="Rooi rose ruik regtig rond." data-english="Red roses really smell all around." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">6 · R-klank</span>
-            <p class="phrase">Rooi rose ruik regtig rond.</p>
-            <div class="hint"><span class="chip sound">r</span><span class="chip level">tongpunt</span></div>
-          </article>
-
-          <article class="card" data-phrase="Groot Gert grawe gate graag." data-english="Big Gert gladly digs holes." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">7 · G/GR-klank</span>
-            <p class="phrase">Groot Gert grawe gate graag.</p>
-            <div class="hint"><span class="chip sound">g</span><span class="chip sound">gr</span></div>
-          </article>
-
-          <article class="card" data-phrase="Vlok vlieg vinnig verby vyf vriende." data-english="Vlok flies quickly past five friends." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">8 · V/F-klank</span>
-            <p class="phrase">Vlok vlieg vinnig verby vyf vriende.</p>
-            <div class="hint"><span class="chip sound">v</span><span class="chip sound">f</span></div>
-          </article>
-
-          <article class="card" data-phrase="Liewe Liza lees lekker lank." data-english="Dear Liza reads nicely for a long time." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">9 · L-klank</span>
-            <p class="phrase">Liewe Liza lees lekker lank.</p>
-            <div class="hint"><span class="chip sound">l</span><span class="chip level">ritme</span></div>
-          </article>
-
-          <article class="card" data-phrase="Bennie bring bruin brood by broer Bram." data-english="Bennie brings brown bread to brother Bram." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">10 · BR-klank</span>
-            <p class="phrase">Bennie bring bruin brood by broer Bram.</p>
-            <div class="hint"><span class="chip sound">br</span><span class="chip level">asem beheer</span></div>
-          </article>
+          <article class="card" data-phrase="Rooi rose ruik regtig rond." data-english="Red roses really smell all around." tabindex="0" role="button"><span class="badge">6 · R-klank</span><p class="phrase">Rooi rose ruik regtig rond.</p><div class="hint"><span class="chip sound">r</span><span class="chip level">tongpunt</span></div></article>
+          <article class="card" data-phrase="Groot Gert grawe gate graag." data-english="Big Gert gladly digs holes." tabindex="0" role="button"><span class="badge">7 · G/GR-klank</span><p class="phrase">Groot Gert grawe gate graag.</p><div class="hint"><span class="chip sound">g</span><span class="chip sound">gr</span></div></article>
+          <article class="card" data-phrase="Vlok vlieg vinnig verby vyf vriende." data-english="Vlok flies quickly past five friends." tabindex="0" role="button"><span class="badge">8 · V/F-klank</span><p class="phrase">Vlok vlieg vinnig verby vyf vriende.</p><div class="hint"><span class="chip sound">v</span><span class="chip sound">f</span></div></article>
+          <article class="card" data-phrase="Liewe Liza lees lekker lank." data-english="Dear Liza reads nicely for a long time." tabindex="0" role="button"><span class="badge">9 · L-klank</span><p class="phrase">Liewe Liza lees lekker lank.</p><div class="hint"><span class="chip sound">l</span><span class="chip level">ritme</span></div></article>
+          <article class="card" data-phrase="Bennie bring bruin brood by broer Bram." data-english="Bennie brings brown bread to brother Bram." tabindex="0" role="button"><span class="badge">10 · BR-klank</span><p class="phrase">Bennie bring bruin brood by broer Bram.</p><div class="hint"><span class="chip sound">br</span><span class="chip level">asem beheer</span></div></article>
         </div>
       </section>
 
       <section class="level-panel" id="panel-hard" role="tabpanel" aria-labelledby="tab-hard" data-level="hard">
-        <div class="level-heading">
-          <h2>Uitdaging</h2>
-          <span>Gebruik as spanresies of afsluiter</span>
-        </div>
-
+        <div class="level-heading"><h2>Uitdaging</h2><span>Gebruik as spanresies of afsluiter</span></div>
         <div class="grid">
-          <article class="card" data-phrase="Die slim slak sleep stadig sewe slymerige slaaiblare." data-english="The clever snail slowly drags seven slimy lettuce leaves." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">11 · SL/S-klank</span>
-            <p class="phrase">Die slim slak sleep stadig sewe slymerige slaaiblare.</p>
-            <div class="hint"><span class="chip sound">sl</span><span class="chip sound">s</span></div>
-          </article>
-
-          <article class="card" data-phrase="Grys Gertjie gryp graag groot groen druiwe." data-english="Grey Gertjie gladly grabs big green grapes." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">12 · GR-klank</span>
-            <p class="phrase">Grys Gertjie gryp graag groot groen druiwe.</p>
-            <div class="hint"><span class="chip sound">gr</span><span class="chip level">moeilik</span></div>
-          </article>
-
-          <article class="card" data-phrase="Riana ry reguit rondom rooi rotse." data-english="Riana rides straight around red rocks." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">13 · R-klank</span>
-            <p class="phrase">Riana ry reguit rondom rooi rotse.</p>
-            <div class="hint"><span class="chip sound">r</span><span class="chip level">vloei</span></div>
-          </article>
-
-          <article class="card" data-phrase="Vyf vrolike varke vreet vars vyeblare." data-english="Five cheerful pigs eat fresh fig leaves." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">14 · V-klank</span>
-            <p class="phrase">Vyf vrolike varke vreet vars vyeblare.</p>
-            <div class="hint"><span class="chip sound">v</span><span class="chip level">lippe en tande</span></div>
-          </article>
-
-          <article class="card" data-phrase="Tannie Tina tel tien tamaties teen die tuinmuur." data-english="Auntie Tina counts ten tomatoes against the garden wall." tabindex="0" role="button" aria-label="Klik om die tongknoper te onthul">
-            <span class="badge">15 · T-klank</span>
-            <p class="phrase">Tannie Tina tel tien tamaties teen die tuinmuur.</p>
-            <div class="hint"><span class="chip sound">t</span><span class="chip level">presies</span></div>
-          </article>
+          <article class="card" data-phrase="Die slim slak sleep stadig sewe slymerige slaaiblare." data-english="The clever snail slowly drags seven slimy lettuce leaves." tabindex="0" role="button"><span class="badge">11 · SL/S-klank</span><p class="phrase">Die slim slak sleep stadig sewe slymerige slaaiblare.</p><div class="hint"><span class="chip sound">sl</span><span class="chip sound">s</span></div></article>
+          <article class="card" data-phrase="Grys Gertjie gryp graag groot groen druiwe." data-english="Grey Gertjie gladly grabs big green grapes." tabindex="0" role="button"><span class="badge">12 · GR-klank</span><p class="phrase">Grys Gertjie gryp graag groot groen druiwe.</p><div class="hint"><span class="chip sound">gr</span><span class="chip level">moeilik</span></div></article>
+          <article class="card" data-phrase="Riana ry reguit rondom rooi rotse." data-english="Riana rides straight around red rocks." tabindex="0" role="button"><span class="badge">13 · R-klank</span><p class="phrase">Riana ry reguit rondom rooi rotse.</p><div class="hint"><span class="chip sound">r</span><span class="chip level">vloei</span></div></article>
+          <article class="card" data-phrase="Vyf vrolike varke vreet vars vyeblare." data-english="Five cheerful pigs eat fresh fig leaves." tabindex="0" role="button"><span class="badge">14 · V-klank</span><p class="phrase">Vyf vrolike varke vreet vars vyeblare.</p><div class="hint"><span class="chip sound">v</span><span class="chip level">lippe en tande</span></div></article>
+          <article class="card" data-phrase="Tannie Tina tel tien tamaties teen die tuinmuur." data-english="Auntie Tina counts ten tomatoes against the garden wall." tabindex="0" role="button"><span class="badge">15 · T-klank</span><p class="phrase">Tannie Tina tel tien tamaties teen die tuinmuur.</p><div class="hint"><span class="chip sound">t</span><span class="chip level">presies</span></div></article>
         </div>
       </section>
 
       <section class="level-panel" id="panel-vocab" role="tabpanel" aria-labelledby="tab-vocab" data-level="vocab">
-        <div class="level-heading">
-          <h2>Woordeskat</h2>
-          <span>Leer die Uitdaging-woorde aktief</span>
-        </div>
-
+        <div class="level-heading"><h2>Woordeskat</h2><span>Leer die Uitdaging-woorde aktief</span></div>
         <div class="vocab-shell">
           <div class="mode-row" aria-label="Woordeskat modusse">
             <button class="mode-btn active" type="button" data-mode="flashcards">Flashcards</button>
             <button class="mode-btn" type="button" data-mode="match">Match</button>
             <button class="mode-btn" type="button" data-mode="type">Type Afrikaans</button>
+            <button class="mode-btn" type="button" data-mode="sentence">Sinsbou</button>
           </div>
 
           <section class="vocab-mode active" id="mode-flashcards">
             <p class="vocab-help">Klik op die kaart om die Engelse betekenis te wys. Gebruik dit vir vinnige aktiewe herroeping.</p>
-            <div class="flashcard-box" id="flashcardBox" tabindex="0" role="button" aria-label="Klik om die betekenis te wys">
-              <div>
-                <span class="flash-label" id="flashLabel">Afrikaans</span>
-                <p class="flash-word" id="flashWord">slak</p>
-                <div class="flash-sub" id="flashSub">Klik om Engels te wys</div>
-              </div>
-            </div>
-            <div class="small-row">
-              <button class="small-btn" type="button" id="prevFlashBtn">← Vorige</button>
-              <button class="small-btn" type="button" id="nextFlashBtn">Volgende →</button>
-              <button class="small-btn" type="button" id="shuffleFlashBtn">Skud kaarte</button>
-              <span class="progress-pill" id="flashProgress">1 / 20</span>
-            </div>
+            <div class="flashcard-box" id="flashcardBox" tabindex="0" role="button"><div><span class="flash-label" id="flashLabel">Afrikaans</span><p class="flash-word" id="flashWord">slak</p><div class="flash-sub" id="flashSub">Klik om Engels te wys</div></div></div>
+            <div class="small-row"><button class="small-btn" type="button" id="prevFlashBtn">← Vorige</button><button class="small-btn" type="button" id="nextFlashBtn">Volgende →</button><button class="small-btn" type="button" id="shuffleFlashBtn">Skud kaarte</button><span class="progress-pill" id="flashProgress">1 / 20</span></div>
           </section>
 
           <section class="vocab-mode" id="mode-match">
             <p class="vocab-help">Klik eers die Afrikaans woord, dan die Engelse betekenis. Regte pare bly groen.</p>
-            <div class="small-row">
-              <button class="small-btn" type="button" id="newMatchBtn">Nuwe stel</button>
-              <span class="progress-pill" id="matchProgress">0 / 8 reg</span>
-            </div>
-            <div class="match-area" aria-label="Match Afrikaans and English">
-              <div class="match-column">
-                <h3>Afrikaans</h3>
-                <div class="match-list" id="matchAfList"></div>
-              </div>
-              <div class="match-column">
-                <h3>English</h3>
-                <div class="match-list" id="matchEnList"></div>
-              </div>
-            </div>
+            <div class="small-row"><button class="small-btn" type="button" id="newMatchBtn">Nuwe stel</button><span class="progress-pill" id="matchProgress">0 / 8 reg</span></div>
+            <div class="match-area"><div class="match-column"><h3>Afrikaans</h3><div class="match-list" id="matchAfList"></div></div><div class="match-column"><h3>English</h3><div class="match-list" id="matchEnList"></div></div></div>
           </section>
 
           <section class="vocab-mode" id="mode-type">
             <p class="vocab-help">Lees die Engelse clue en tik die Afrikaans woord. Druk Enter of klik Check.</p>
-            <div class="type-box">
-              <span class="type-clue-label">English clue</span>
-              <p class="type-clue" id="typeClue">snail</p>
-              <div class="type-input-row">
-                <input class="type-input" id="typeInput" type="text" autocomplete="off" placeholder="Tik Afrikaans hier..." />
-                <button class="small-btn" type="button" id="checkTypeBtn">Check</button>
-                <button class="small-btn" type="button" id="nextTypeBtn">Volgende</button>
-              </div>
-              <div class="small-row">
-                <span class="feedback-pill" id="typeFeedback">Begin deur die woord te tik.</span>
-                <span class="progress-pill" id="typeProgress">1 / 20</span>
-              </div>
+            <div class="type-box"><span class="type-clue-label">English clue</span><p class="type-clue" id="typeClue">snail</p><div class="type-input-row"><input class="type-input" id="typeInput" type="text" autocomplete="off" placeholder="Tik Afrikaans hier..." /><button class="small-btn" type="button" id="checkTypeBtn">Check</button><button class="small-btn" type="button" id="nextTypeBtn">Volgende</button></div><div class="small-row"><span class="feedback-pill" id="typeFeedback">Begin deur die woord te tik.</span><span class="progress-pill" id="typeProgress">1 / 20</span></div></div>
+          </section>
+
+          <section class="vocab-mode" id="mode-sentence">
+            <p class="vocab-help">Sleep die regte woord in die sin. Op ’n tablet kan jy ook eers die woord kies en dan op die leë spasie klik.</p>
+            <div class="sentence-box">
+              <span class="sentence-label">Sinsbou</span>
+              <p class="sentence-text" id="sentenceText"></p>
+              <div class="word-bank" id="sentenceWordBank" aria-label="Woordbank"></div>
+              <div class="small-row"><button class="small-btn" type="button" id="newSentenceBtn">Nuwe sin</button><button class="small-btn" type="button" id="resetSentenceBtn">Herstel</button><span class="feedback-pill" id="sentenceFeedback">Sleep of kies ’n woord.</span><span class="progress-pill" id="sentenceProgress">1 / 12</span></div>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="mini-routine" aria-label="Klaskamer roetine">
-        <div class="routine-step">1. Klap die ritme saam.</div>
-        <div class="routine-step">2. Fluister dit stadig.</div>
-        <div class="routine-step">3. Sê dit normaal.</div>
-        <div class="routine-step">4. Doen die spoed-uitdaging.</div>
-      </section>
+      <section class="mini-routine" aria-label="Klaskamer roetine"><div class="routine-step">1. Klap die ritme saam.</div><div class="routine-step">2. Fluister dit stadig.</div><div class="routine-step">3. Sê dit normaal.</div><div class="routine-step">4. Gebruik die woord in ’n sin.</div></section>
     </main>
 
-    <footer>
-      Fokus: uitspraak, ritme, selfvertroue en luistervaardigheid. Spoed kom laaste.
-    </footer>
+    <footer>Fokus: uitspraak, ritme, selfvertroue en woordeskat in konteks. Spoed kom laaste.</footer>
   </div>
 
   <script>
     const vocabWords = [
-      { af: 'slak', en: 'snail' },
-      { af: 'sleep', en: 'drag/pull' },
-      { af: 'stadig', en: 'slowly' },
-      { af: 'sewe', en: 'seven' },
-      { af: 'slymerige', en: 'slimy' },
-      { af: 'slaaiblare', en: 'salad leaves/lettuce leaves' },
-      { af: 'grys', en: 'grey' },
-      { af: 'gryp', en: 'grab' },
-      { af: 'groot', en: 'big' },
-      { af: 'groen', en: 'green' },
-      { af: 'druiwe', en: 'grapes' },
-      { af: 'reguit', en: 'straight' },
-      { af: 'rondom', en: 'around' },
-      { af: 'rooi', en: 'red' },
-      { af: 'rotse', en: 'rocks' },
-      { af: 'vrolike', en: 'cheerful' },
-      { af: 'varke', en: 'pigs' },
-      { af: 'vyeblare', en: 'fig leaves' },
-      { af: 'tamaties', en: 'tomatoes' },
-      { af: 'tuinmuur', en: 'garden wall' }
+      { af: 'slak', en: 'snail' }, { af: 'sleep', en: 'drag/pull' }, { af: 'stadig', en: 'slowly' }, { af: 'sewe', en: 'seven' }, { af: 'slymerige', en: 'slimy' },
+      { af: 'slaaiblare', en: 'salad leaves/lettuce leaves' }, { af: 'grys', en: 'grey' }, { af: 'gryp', en: 'grab' }, { af: 'groot', en: 'big' }, { af: 'groen', en: 'green' },
+      { af: 'druiwe', en: 'grapes' }, { af: 'reguit', en: 'straight' }, { af: 'rondom', en: 'around' }, { af: 'rooi', en: 'red' }, { af: 'rotse', en: 'rocks' },
+      { af: 'vrolike', en: 'cheerful' }, { af: 'varke', en: 'pigs' }, { af: 'vyeblare', en: 'fig leaves' }, { af: 'tamaties', en: 'tomatoes' }, { af: 'tuinmuur', en: 'garden wall' }
+    ];
+
+    const sentenceChallenges = [
+      { sentence: 'Die slim ___ kruip oor die blaar.', answer: 'slak', options: ['slak', 'druiwe', 'rooi', 'tuinmuur'] },
+      { sentence: 'Ek ___ my tas stadig na die klas.', answer: 'sleep', options: ['sleep', 'gryp', 'rondom', 'groen'] },
+      { sentence: 'Die skilpad loop baie ___.', answer: 'stadig', options: ['stadig', 'sewe', 'groot', 'reguit'] },
+      { sentence: 'Daar is ___ potlode op die tafel.', answer: 'sewe', options: ['sewe', 'grys', 'varke', 'rotse'] },
+      { sentence: 'Die ___ slak los ’n blink spoor.', answer: 'slymerige', options: ['slymerige', 'vrolike', 'groen', 'rooi'] },
+      { sentence: 'Die skilpad eet vars ___.', answer: 'slaaiblare', options: ['slaaiblare', 'rotse', 'tamaties', 'tuinmuur'] },
+      { sentence: 'Die hond is wit en ___.', answer: 'grys', options: ['grys', 'gryp', 'reguit', 'rondom'] },
+      { sentence: 'Ek ___ die bal met twee hande.', answer: 'gryp', options: ['gryp', 'sleep', 'stadig', 'sewe'] },
+      { sentence: 'Die ___ boom staan by die hek.', answer: 'groot', options: ['groot', 'groen', 'rooi', 'vrolike'] },
+      { sentence: 'Die blare is mooi en ___.', answer: 'groen', options: ['groen', 'grys', 'slymerige', 'reguit'] },
+      { sentence: 'Ons eet pers ___ by middagete.', answer: 'druiwe', options: ['druiwe', 'varke', 'vyeblare', 'rotse'] },
+      { sentence: 'Loop ___ na die deur toe.', answer: 'reguit', options: ['reguit', 'rondom', 'stadig', 'groot'] },
+      { sentence: 'Die kinders hardloop ___ die boom.', answer: 'rondom', options: ['rondom', 'reguit', 'rooi', 'sleep'] },
+      { sentence: 'Die appel is helder ___.', answer: 'rooi', options: ['rooi', 'grys', 'groen', 'sewe'] },
+      { sentence: 'Daar lê groot ___ langs die pad.', answer: 'rotse', options: ['rotse', 'tamaties', 'slaaiblare', 'druiwe'] },
+      { sentence: 'Die ___ kinders lag hard.', answer: 'vrolike', options: ['vrolike', 'slymerige', 'grys', 'groot'] },
+      { sentence: 'Die ___ eet in die modder.', answer: 'varke', options: ['varke', 'slak', 'druiwe', 'vyeblare'] },
+      { sentence: 'Die bok kou aan die ___.', answer: 'vyeblare', options: ['vyeblare', 'tuinmuur', 'rotse', 'tamaties'] },
+      { sentence: 'Tannie Tina tel tien ___.', answer: 'tamaties', options: ['tamaties', 'druiwe', 'slaaiblare', 'varke'] },
+      { sentence: 'Die bal lê teen die ___.', answer: 'tuinmuur', options: ['tuinmuur', 'slak', 'groen', 'gryp'] }
     ];
 
     const cards = Array.from(document.querySelectorAll('.card'));
@@ -973,64 +360,22 @@
     const randomText = document.getElementById('randomText');
     const modeButtons = Array.from(document.querySelectorAll('.mode-btn'));
     const vocabModes = Array.from(document.querySelectorAll('.vocab-mode'));
-    const flashcardBox = document.getElementById('flashcardBox');
-    const flashLabel = document.getElementById('flashLabel');
-    const flashWord = document.getElementById('flashWord');
-    const flashSub = document.getElementById('flashSub');
-    const flashProgress = document.getElementById('flashProgress');
-    const prevFlashBtn = document.getElementById('prevFlashBtn');
-    const nextFlashBtn = document.getElementById('nextFlashBtn');
-    const shuffleFlashBtn = document.getElementById('shuffleFlashBtn');
-    const matchAfList = document.getElementById('matchAfList');
-    const matchEnList = document.getElementById('matchEnList');
-    const matchProgress = document.getElementById('matchProgress');
-    const newMatchBtn = document.getElementById('newMatchBtn');
-    const typeClue = document.getElementById('typeClue');
-    const typeInput = document.getElementById('typeInput');
-    const checkTypeBtn = document.getElementById('checkTypeBtn');
-    const nextTypeBtn = document.getElementById('nextTypeBtn');
-    const typeFeedback = document.getElementById('typeFeedback');
-    const typeProgress = document.getElementById('typeProgress');
     let showingAll = false;
-    let flashDeck = [...vocabWords];
-    let flashIndex = 0;
-    let flashShowingEnglish = false;
-    let matchSet = [];
-    let selectedAf = null;
-    let selectedEn = null;
-    let matchedCount = 0;
-    let typeDeck = [...vocabWords];
-    let typeIndex = 0;
+    let flashDeck = [...vocabWords], flashIndex = 0, flashShowingEnglish = false;
+    let matchSet = [], selectedAf = null, selectedEn = null, matchedCount = 0;
+    let typeDeck = shuffleArray(vocabWords), typeIndex = 0;
+    let sentenceDeck = shuffleArray(sentenceChallenges), sentenceIndex = 0, selectedSentenceWord = null;
 
-    function shuffleArray(array) {
-      const copy = [...array];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
+    const el = id => document.getElementById(id);
+    function shuffleArray(array) { const copy = [...array]; for (let i = copy.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [copy[i], copy[j]] = [copy[j], copy[i]]; } return copy; }
 
     function lockCardsForLesson() {
-      cards.forEach(card => {
-        card.classList.add('locked');
-        card.classList.remove('translated');
-        card.querySelector('.phrase').textContent = card.dataset.phrase;
-        card.setAttribute('aria-label', 'Klik om die tongknoper te onthul');
-      });
+      cards.forEach(card => { card.classList.add('locked'); card.classList.remove('translated'); card.querySelector('.phrase').textContent = card.dataset.phrase; card.setAttribute('aria-label', 'Klik om die tongknoper te onthul'); });
     }
 
     function toggleCardLanguage(card) {
       const phrase = card.querySelector('.phrase');
-
-      if (card.classList.contains('locked')) {
-        card.classList.remove('locked');
-        card.classList.remove('translated');
-        phrase.textContent = card.dataset.phrase;
-        card.setAttribute('aria-label', 'Klik om Engelse betekenis te wys');
-        return;
-      }
-
+      if (card.classList.contains('locked')) { card.classList.remove('locked'); card.classList.remove('translated'); phrase.textContent = card.dataset.phrase; card.setAttribute('aria-label', 'Klik om Engelse betekenis te wys'); return; }
       const isEnglish = card.classList.toggle('translated');
       phrase.textContent = isEnglish ? card.dataset.english : card.dataset.phrase;
       card.setAttribute('aria-label', isEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engelse betekenis te wys');
@@ -1038,37 +383,17 @@
 
     cards.forEach(card => {
       card.addEventListener('click', () => toggleCardLanguage(card));
-      card.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          toggleCardLanguage(card);
-        }
-      });
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCardLanguage(card); } });
     });
 
     function activateTab(tabName) {
       showingAll = false;
       showAllBtn.textContent = '👀 Wys alle vlakke';
-
-      tabButtons.forEach(btn => {
-        const isActive = btn.dataset.tab === tabName;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-selected', String(isActive));
-      });
-
-      panels.forEach(panel => {
-        panel.classList.toggle('active', panel.dataset.level === tabName);
-      });
+      tabButtons.forEach(btn => { const active = btn.dataset.tab === tabName; btn.classList.toggle('active', active); btn.setAttribute('aria-selected', String(active)); });
+      panels.forEach(panel => panel.classList.toggle('active', panel.dataset.level === tabName));
     }
-
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => activateTab(btn.dataset.tab));
-    });
-
-    function getActiveTab() {
-      const active = tabButtons.find(btn => btn.getAttribute('aria-selected') === 'true');
-      return active ? active.dataset.tab : 'easy';
-    }
+    tabButtons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+    function getActiveTab() { const active = tabButtons.find(btn => btn.getAttribute('aria-selected') === 'true'); return active ? active.dataset.tab : 'easy'; }
 
     showAllBtn.addEventListener('click', () => {
       showingAll = !showingAll;
@@ -1078,18 +403,12 @@
     });
 
     randomBtn.addEventListener('click', () => {
-      const visibleCards = showingAll
-        ? Array.from(document.querySelectorAll('.card'))
-        : Array.from(document.querySelectorAll('.level-panel.active .card'));
-
+      const visibleCards = showingAll ? Array.from(document.querySelectorAll('.card')) : Array.from(document.querySelectorAll('.level-panel.active .card'));
       const pool = visibleCards.length ? visibleCards : Array.from(document.querySelectorAll('.card'));
       const chosen = pool[Math.floor(Math.random() * pool.length)];
-
-      chosen.classList.remove('locked');
-      chosen.classList.remove('translated');
+      chosen.classList.remove('locked', 'translated');
       chosen.querySelector('.phrase').textContent = chosen.dataset.phrase;
       chosen.setAttribute('aria-label', 'Klik om Engelse betekenis te wys');
-
       randomText.textContent = chosen.dataset.phrase;
       randomBox.classList.add('show');
     });
@@ -1098,185 +417,93 @@
       modeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === modeName));
       vocabModes.forEach(mode => mode.classList.toggle('active', mode.id === `mode-${modeName}`));
       if (modeName === 'match') buildMatchSet();
-      if (modeName === 'type') {
-        typeInput.focus();
-      }
+      if (modeName === 'type') el('typeInput').focus();
+      if (modeName === 'sentence') renderSentenceChallenge();
     }
-
-    modeButtons.forEach(btn => {
-      btn.addEventListener('click', () => setVocabMode(btn.dataset.mode));
-    });
+    modeButtons.forEach(btn => btn.addEventListener('click', () => setVocabMode(btn.dataset.mode)));
 
     function renderFlashcard() {
       const current = flashDeck[flashIndex];
-      flashLabel.textContent = flashShowingEnglish ? 'English' : 'Afrikaans';
-      flashWord.textContent = flashShowingEnglish ? current.en : current.af;
-      flashSub.textContent = flashShowingEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engels te wys';
-      flashProgress.textContent = `${flashIndex + 1} / ${flashDeck.length}`;
-      flashcardBox.setAttribute('aria-label', flashShowingEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engels te wys');
+      el('flashLabel').textContent = flashShowingEnglish ? 'English' : 'Afrikaans';
+      el('flashWord').textContent = flashShowingEnglish ? current.en : current.af;
+      el('flashSub').textContent = flashShowingEnglish ? 'Klik om Afrikaans te wys' : 'Klik om Engels te wys';
+      el('flashProgress').textContent = `${flashIndex + 1} / ${flashDeck.length}`;
     }
-
-    function nextFlash() {
-      flashIndex = (flashIndex + 1) % flashDeck.length;
-      flashShowingEnglish = false;
-      renderFlashcard();
-    }
-
-    function prevFlash() {
-      flashIndex = (flashIndex - 1 + flashDeck.length) % flashDeck.length;
-      flashShowingEnglish = false;
-      renderFlashcard();
-    }
-
-    flashcardBox.addEventListener('click', () => {
-      flashShowingEnglish = !flashShowingEnglish;
-      renderFlashcard();
-    });
-
-    flashcardBox.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        flashShowingEnglish = !flashShowingEnglish;
-        renderFlashcard();
-      }
-    });
-
-    nextFlashBtn.addEventListener('click', nextFlash);
-    prevFlashBtn.addEventListener('click', prevFlash);
-    shuffleFlashBtn.addEventListener('click', () => {
-      flashDeck = shuffleArray(vocabWords);
-      flashIndex = 0;
-      flashShowingEnglish = false;
-      renderFlashcard();
-    });
+    function nextFlash() { flashIndex = (flashIndex + 1) % flashDeck.length; flashShowingEnglish = false; renderFlashcard(); }
+    function prevFlash() { flashIndex = (flashIndex - 1 + flashDeck.length) % flashDeck.length; flashShowingEnglish = false; renderFlashcard(); }
+    el('flashcardBox').addEventListener('click', () => { flashShowingEnglish = !flashShowingEnglish; renderFlashcard(); });
+    el('flashcardBox').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flashShowingEnglish = !flashShowingEnglish; renderFlashcard(); } });
+    el('nextFlashBtn').addEventListener('click', nextFlash);
+    el('prevFlashBtn').addEventListener('click', prevFlash);
+    el('shuffleFlashBtn').addEventListener('click', () => { flashDeck = shuffleArray(vocabWords); flashIndex = 0; flashShowingEnglish = false; renderFlashcard(); });
 
     function buildMatchSet() {
       matchSet = shuffleArray(vocabWords).slice(0, 8);
       const shuffledEnglish = shuffleArray(matchSet);
-      selectedAf = null;
-      selectedEn = null;
-      matchedCount = 0;
-      matchProgress.textContent = '0 / 8 reg';
-      matchAfList.innerHTML = '';
-      matchEnList.innerHTML = '';
-
-      matchSet.forEach(word => {
-        const button = document.createElement('button');
-        button.className = 'match-item';
-        button.type = 'button';
-        button.textContent = word.af;
-        button.dataset.af = word.af;
-        button.addEventListener('click', () => chooseMatch(button, 'af'));
-        matchAfList.appendChild(button);
-      });
-
-      shuffledEnglish.forEach(word => {
-        const button = document.createElement('button');
-        button.className = 'match-item';
-        button.type = 'button';
-        button.textContent = word.en;
-        button.dataset.af = word.af;
-        button.addEventListener('click', () => chooseMatch(button, 'en'));
-        matchEnList.appendChild(button);
-      });
+      selectedAf = null; selectedEn = null; matchedCount = 0;
+      el('matchProgress').textContent = '0 / 8 reg';
+      el('matchAfList').innerHTML = ''; el('matchEnList').innerHTML = '';
+      matchSet.forEach(word => makeMatchButton(word, 'af', el('matchAfList')));
+      shuffledEnglish.forEach(word => makeMatchButton(word, 'en', el('matchEnList')));
     }
-
+    function makeMatchButton(word, side, parent) { const b = document.createElement('button'); b.className = 'match-item'; b.type = 'button'; b.textContent = side === 'af' ? word.af : word.en; b.dataset.af = word.af; b.addEventListener('click', () => chooseMatch(b, side)); parent.appendChild(b); }
     function chooseMatch(button, side) {
       if (button.classList.contains('matched')) return;
-
-      if (side === 'af') {
-        document.querySelectorAll('#matchAfList .match-item').forEach(btn => btn.classList.remove('selected'));
-        selectedAf = button;
-      } else {
-        document.querySelectorAll('#matchEnList .match-item').forEach(btn => btn.classList.remove('selected'));
-        selectedEn = button;
-      }
-
-      button.classList.add('selected');
-      checkMatchPair();
+      if (side === 'af') { document.querySelectorAll('#matchAfList .match-item').forEach(btn => btn.classList.remove('selected')); selectedAf = button; } else { document.querySelectorAll('#matchEnList .match-item').forEach(btn => btn.classList.remove('selected')); selectedEn = button; }
+      button.classList.add('selected'); checkMatchPair();
     }
-
     function checkMatchPair() {
       if (!selectedAf || !selectedEn) return;
-
-      if (selectedAf.dataset.af === selectedEn.dataset.af) {
-        selectedAf.classList.remove('selected');
-        selectedEn.classList.remove('selected');
-        selectedAf.classList.add('matched');
-        selectedEn.classList.add('matched');
-        matchedCount += 1;
-        matchProgress.textContent = `${matchedCount} / 8 reg`;
-        selectedAf = null;
-        selectedEn = null;
-      } else {
-        selectedAf.classList.add('wrong');
-        selectedEn.classList.add('wrong');
-        setTimeout(() => {
-          selectedAf.classList.remove('selected', 'wrong');
-          selectedEn.classList.remove('selected', 'wrong');
-          selectedAf = null;
-          selectedEn = null;
-        }, 650);
-      }
+      if (selectedAf.dataset.af === selectedEn.dataset.af) { selectedAf.classList.remove('selected'); selectedEn.classList.remove('selected'); selectedAf.classList.add('matched'); selectedEn.classList.add('matched'); matchedCount++; el('matchProgress').textContent = `${matchedCount} / 8 reg`; selectedAf = null; selectedEn = null; }
+      else { selectedAf.classList.add('wrong'); selectedEn.classList.add('wrong'); setTimeout(() => { selectedAf.classList.remove('selected','wrong'); selectedEn.classList.remove('selected','wrong'); selectedAf = null; selectedEn = null; }, 650); }
     }
+    el('newMatchBtn').addEventListener('click', buildMatchSet);
 
-    newMatchBtn.addEventListener('click', buildMatchSet);
+    function renderTypeQuestion() { const current = typeDeck[typeIndex]; el('typeClue').textContent = current.en; el('typeProgress').textContent = `${typeIndex + 1} / ${typeDeck.length}`; el('typeFeedback').textContent = 'Tik die Afrikaans woord.'; el('typeFeedback').style.background = 'var(--soft-yellow)'; el('typeInput').value = ''; }
+    function checkTypeAnswer() { const current = typeDeck[typeIndex]; const answer = el('typeInput').value.trim().toLowerCase(); if (answer === current.af.toLowerCase()) { el('typeFeedback').textContent = `Reg! ${current.af} = ${current.en}`; el('typeFeedback').style.background = 'var(--soft-green)'; } else { el('typeFeedback').textContent = `Amper. Antwoord: ${current.af}`; el('typeFeedback').style.background = 'var(--soft-pink)'; } }
+    function nextTypeQuestion() { typeIndex = (typeIndex + 1) % typeDeck.length; renderTypeQuestion(); }
+    el('checkTypeBtn').addEventListener('click', checkTypeAnswer);
+    el('nextTypeBtn').addEventListener('click', nextTypeQuestion);
+    el('typeInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkTypeAnswer(); });
 
-    function renderTypeQuestion() {
-      const current = typeDeck[typeIndex];
-      typeClue.textContent = current.en;
-      typeProgress.textContent = `${typeIndex + 1} / ${typeDeck.length}`;
-      typeFeedback.textContent = 'Tik die Afrikaans woord.';
-      typeFeedback.style.background = 'var(--soft-yellow)';
-      typeInput.value = '';
-      typeInput.focus();
+    function renderSentenceChallenge() {
+      const challenge = sentenceDeck[sentenceIndex];
+      selectedSentenceWord = null;
+      el('sentenceFeedback').textContent = 'Sleep of kies ’n woord.';
+      el('sentenceFeedback').style.background = 'var(--soft-yellow)';
+      el('sentenceProgress').textContent = `${sentenceIndex + 1} / ${sentenceDeck.length}`;
+      el('sentenceText').innerHTML = challenge.sentence.replace('___', '<span class="sentence-gap" id="sentenceGap" tabindex="0" role="button" aria-label="Leë spasie vir antwoord">_____</span>');
+      const gap = el('sentenceGap');
+      gap.addEventListener('dragover', e => { e.preventDefault(); gap.classList.add('ready'); });
+      gap.addEventListener('dragleave', () => gap.classList.remove('ready'));
+      gap.addEventListener('drop', e => { e.preventDefault(); gap.classList.remove('ready'); checkSentenceWord(e.dataTransfer.getData('text/plain')); });
+      gap.addEventListener('click', () => { if (selectedSentenceWord) checkSentenceWord(selectedSentenceWord); });
+      gap.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && selectedSentenceWord) { e.preventDefault(); checkSentenceWord(selectedSentenceWord); } });
+      const bank = el('sentenceWordBank'); bank.innerHTML = '';
+      shuffleArray(challenge.options).forEach(word => {
+        const b = document.createElement('button'); b.className = 'drag-word'; b.type = 'button'; b.draggable = true; b.textContent = word; b.dataset.word = word;
+        b.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', word));
+        b.addEventListener('click', () => selectSentenceWord(b));
+        bank.appendChild(b);
+      });
     }
-
-    function checkTypeAnswer() {
-      const current = typeDeck[typeIndex];
-      const answer = typeInput.value.trim().toLowerCase();
-      const correct = current.af.toLowerCase();
-
-      if (answer === correct) {
-        typeFeedback.textContent = `Reg! ${current.af} = ${current.en}`;
-        typeFeedback.style.background = 'var(--soft-green)';
-      } else {
-        typeFeedback.textContent = `Amper. Antwoord: ${current.af}`;
-        typeFeedback.style.background = 'var(--soft-pink)';
-      }
+    function selectSentenceWord(button) { document.querySelectorAll('.drag-word').forEach(btn => btn.classList.remove('selected')); button.classList.add('selected'); selectedSentenceWord = button.dataset.word; el('sentenceFeedback').textContent = `Gekies: ${selectedSentenceWord}. Klik nou die leë spasie.`; el('sentenceFeedback').style.background = 'var(--soft-blue)'; }
+    function checkSentenceWord(word) {
+      const challenge = sentenceDeck[sentenceIndex]; const gap = el('sentenceGap');
+      gap.classList.remove('correct','wrong');
+      if (word === challenge.answer) { gap.textContent = word; gap.classList.add('correct'); el('sentenceFeedback').textContent = `Reg! ${word} pas in die sin.`; el('sentenceFeedback').style.background = 'var(--soft-green)'; document.querySelectorAll('.drag-word').forEach(btn => { if (btn.dataset.word === word) btn.classList.add('used'); btn.classList.remove('selected'); }); selectedSentenceWord = null; }
+      else { gap.textContent = word; gap.classList.add('wrong'); el('sentenceFeedback').textContent = `Nie daardie een nie. Probeer weer.`; el('sentenceFeedback').style.background = 'var(--soft-pink)'; setTimeout(() => { gap.textContent = '_____'; gap.classList.remove('wrong'); }, 700); }
     }
+    function nextSentence() { sentenceIndex = (sentenceIndex + 1) % sentenceDeck.length; renderSentenceChallenge(); }
+    el('newSentenceBtn').addEventListener('click', nextSentence);
+    el('resetSentenceBtn').addEventListener('click', renderSentenceChallenge);
 
-    function nextTypeQuestion() {
-      typeIndex = (typeIndex + 1) % typeDeck.length;
-      renderTypeQuestion();
-    }
+    lockCardsForLesson(); renderFlashcard(); buildMatchSet(); renderTypeQuestion(); renderSentenceChallenge();
 
-    checkTypeBtn.addEventListener('click', checkTypeAnswer);
-    nextTypeBtn.addEventListener('click', nextTypeQuestion);
-    typeInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        checkTypeAnswer();
-      }
-    });
-
-    lockCardsForLesson();
-    renderFlashcard();
-    buildMatchSet();
-    typeDeck = shuffleArray(vocabWords);
-    renderTypeQuestion();
-
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', event => {
       const activeIndex = tabButtons.findIndex(btn => btn.getAttribute('aria-selected') === 'true');
-      if (event.key === 'ArrowRight') {
-        const next = tabButtons[(activeIndex + 1) % tabButtons.length];
-        next.focus();
-        activateTab(next.dataset.tab);
-      }
-      if (event.key === 'ArrowLeft') {
-        const prev = tabButtons[(activeIndex - 1 + tabButtons.length) % tabButtons.length];
-        prev.focus();
-        activateTab(prev.dataset.tab);
-      }
+      if (event.key === 'ArrowRight') { const next = tabButtons[(activeIndex + 1) % tabButtons.length]; next.focus(); activateTab(next.dataset.tab); }
+      if (event.key === 'ArrowLeft') { const prev = tabButtons[(activeIndex - 1 + tabButtons.length) % tabButtons.length]; prev.focus(); activateTab(prev.dataset.tab); }
     });
   </script>
 </body>
