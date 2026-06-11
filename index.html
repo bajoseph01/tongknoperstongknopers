@@ -83,7 +83,7 @@
 
     .teacher-note strong { display: block; font-size: 1.1rem; margin-bottom: 5px; }
     .controls-wrap { padding: 0 34px 18px 74px; }
-    .tabs, .action-row, .mode-row, .small-row, .word-bank { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .tabs, .action-row, .mode-row, .small-row, .word-bank, .sentence-topbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .action-row { margin-top: 14px; }
 
     button, .drag-word {
@@ -155,12 +155,15 @@
 
     .flashcard-box { min-height: 250px; display: grid; place-items: center; text-align: center; border: 4px dashed var(--ink); border-radius: 22px; background: repeating-linear-gradient(0deg, #fffefa 0 29px, rgba(73,124,170,.14) 30px, #fffefa 31px); padding: 24px; cursor: pointer; user-select: none; }
     .flash-label, .type-clue-label, .sentence-label { display: inline-block; background: var(--soft-yellow); border: 2px solid var(--ink); border-radius: 999px; padding: 6px 10px; font-weight: 900; margin-bottom: 12px; }
+    .sentence-topbar { margin-bottom: 10px; }
+    .sentence-label { margin-bottom: 0; }
     .flash-word, .type-clue { font-size: clamp(2.2rem, 6vw, 5rem); font-weight: 950; line-height: 1.05; margin: 0; }
     .flash-sub { margin-top: 14px; font-weight: 800; opacity: .8; }
     .small-row { margin-top: 14px; }
     .small-btn { background: var(--soft-purple); border-radius: 14px; }
-    .lang-btn { background: #1e3a8a; color: #eff6ff; border-color: #0f172a; }
-    .lang-btn:hover { background: #1d4ed8; color: #ffffff; }
+    .lang-switch { background: #dbeafe; color: #1e3a8a; border-color: #1e3a8a; border-radius: 999px; padding: 8px 12px; min-width: 62px; }
+    .lang-switch:hover { background: #bfdbfe; color: #1e3a8a; }
+    .lang-switch.active { background: #1e3a8a; color: #eff6ff; border-color: #0f172a; }
     .progress-pill, .feedback-pill { display: inline-flex; align-items: center; min-height: 42px; border: 3px solid var(--ink); border-radius: 999px; padding: 8px 12px; font-weight: 900; background: var(--soft-yellow); }
 
     .match-area { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -311,12 +314,16 @@
           </section>
 
           <section class="vocab-mode" id="mode-sentence">
-            <p class="vocab-help">Sleep die regte Afrikaans woord in die sin. Gebruik die taal-knoppie om die konteks in Afrikaans of English te sien.</p>
+            <p class="vocab-help">Sleep die regte Afrikaans woord in die sin. Gebruik Afr/Eng om die konteks te wissel.</p>
             <div class="sentence-box">
-              <span class="sentence-label" id="sentenceLangLabel">Afrikaans konteks</span>
+              <div class="sentence-topbar">
+                <span class="sentence-label">Sinsbou</span>
+                <button class="small-btn lang-switch active" type="button" id="sentenceAfrBtn">Afr</button>
+                <button class="small-btn lang-switch" type="button" id="sentenceEngBtn">Eng</button>
+              </div>
               <p class="sentence-text" id="sentenceText"></p>
               <div class="word-bank" id="sentenceWordBank" aria-label="Woordbank"></div>
-              <div class="small-row"><button class="small-btn lang-btn" type="button" id="toggleSentenceLangBtn">Wys English</button><button class="small-btn" type="button" id="newSentenceBtn">Nuwe sin</button><button class="small-btn" type="button" id="resetSentenceBtn">Herstel</button><span class="feedback-pill" id="sentenceFeedback">Sleep of kies ’n woord.</span><span class="progress-pill" id="sentenceProgress">1 / 20</span></div>
+              <div class="small-row"><button class="small-btn" type="button" id="newSentenceBtn">Nuwe sin</button><button class="small-btn" type="button" id="resetSentenceBtn">Herstel</button><span class="feedback-pill" id="sentenceFeedback">Sleep of kies ’n woord.</span><span class="progress-pill" id="sentenceProgress">1 / 20</span></div>
             </div>
           </section>
         </div>
@@ -482,8 +489,8 @@
         el('sentenceFeedback').style.background = 'var(--soft-yellow)';
       }
       el('sentenceProgress').textContent = `${sentenceIndex + 1} / ${sentenceDeck.length}`;
-      el('toggleSentenceLangBtn').textContent = sentenceLanguage === 'af' ? 'Wys English' : 'Wys Afrikaans';
-      el('sentenceLangLabel').textContent = sentenceLanguage === 'af' ? 'Afrikaans konteks' : 'English context';
+      el('sentenceAfrBtn').classList.toggle('active', sentenceLanguage === 'af');
+      el('sentenceEngBtn').classList.toggle('active', sentenceLanguage === 'en');
       const chosenSentence = sentenceLanguage === 'af' ? challenge.sentence : challenge.sentenceEn;
       el('sentenceText').classList.toggle('english-mode', sentenceLanguage === 'en');
       el('sentenceText').innerHTML = chosenSentence.replace('___', '<span class="sentence-gap" id="sentenceGap" tabindex="0" role="button" aria-label="Leë spasie vir antwoord">_____</span>');
@@ -509,10 +516,10 @@
       else { gap.textContent = word; gap.classList.add('wrong'); el('sentenceFeedback').textContent = `Nie daardie een nie. Probeer weer.`; el('sentenceFeedback').style.background = 'var(--soft-pink)'; setTimeout(() => { gap.textContent = '_____'; gap.classList.remove('wrong'); }, 700); }
     }
     function nextSentence() { sentenceIndex = (sentenceIndex + 1) % sentenceDeck.length; renderSentenceChallenge(); }
-    function toggleSentenceLanguage() { sentenceLanguage = sentenceLanguage === 'af' ? 'en' : 'af'; renderSentenceChallenge(false); }
     el('newSentenceBtn').addEventListener('click', nextSentence);
     el('resetSentenceBtn').addEventListener('click', () => renderSentenceChallenge());
-    el('toggleSentenceLangBtn').addEventListener('click', toggleSentenceLanguage);
+    el('sentenceAfrBtn').addEventListener('click', () => { sentenceLanguage = 'af'; renderSentenceChallenge(false); });
+    el('sentenceEngBtn').addEventListener('click', () => { sentenceLanguage = 'en'; renderSentenceChallenge(false); });
 
     lockCardsForLesson(); renderFlashcard(); buildMatchSet(); renderTypeQuestion(); renderSentenceChallenge();
 
