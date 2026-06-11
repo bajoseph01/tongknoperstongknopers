@@ -159,6 +159,8 @@
     .flash-sub { margin-top: 14px; font-weight: 800; opacity: .8; }
     .small-row { margin-top: 14px; }
     .small-btn { background: var(--soft-purple); border-radius: 14px; }
+    .lang-btn { background: #1e3a8a; color: #eff6ff; border-color: #0f172a; }
+    .lang-btn:hover { background: #1d4ed8; color: #ffffff; }
     .progress-pill, .feedback-pill { display: inline-flex; align-items: center; min-height: 42px; border: 3px solid var(--ink); border-radius: 999px; padding: 8px 12px; font-weight: 900; background: var(--soft-yellow); }
 
     .match-area { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -175,6 +177,7 @@
     .type-input { flex: 1 1 240px; border: 3px solid var(--ink); border-radius: 14px; padding: 12px 14px; font: 900 1.25rem/1.2 "Trebuchet MS", system-ui, sans-serif; background: #fff; box-shadow: 3px 3px 0 var(--ink); }
 
     .sentence-text { font-size: clamp(1.5rem, 3.3vw, 3rem); line-height: 1.35; font-weight: 950; margin: 8px 0 16px; }
+    .sentence-text.english-mode { color: #1e3a8a; }
     .sentence-gap { display: inline-flex; align-items: center; justify-content: center; min-width: 180px; min-height: 52px; padding: 6px 14px; margin: 0 6px; border: 4px dashed var(--ink); border-radius: 16px; background: #fff; vertical-align: middle; }
     .sentence-gap.ready { background: var(--soft-blue); }
     .sentence-gap.correct { background: var(--soft-green); border-style: solid; }
@@ -308,12 +311,12 @@
           </section>
 
           <section class="vocab-mode" id="mode-sentence">
-            <p class="vocab-help">Sleep die regte woord in die sin. Op ’n tablet kan jy ook eers die woord kies en dan op die leë spasie klik.</p>
+            <p class="vocab-help">Sleep die regte Afrikaans woord in die sin. Gebruik die taal-knoppie om die konteks in Afrikaans of English te sien.</p>
             <div class="sentence-box">
-              <span class="sentence-label">Sinsbou</span>
+              <span class="sentence-label" id="sentenceLangLabel">Afrikaans konteks</span>
               <p class="sentence-text" id="sentenceText"></p>
               <div class="word-bank" id="sentenceWordBank" aria-label="Woordbank"></div>
-              <div class="small-row"><button class="small-btn" type="button" id="newSentenceBtn">Nuwe sin</button><button class="small-btn" type="button" id="resetSentenceBtn">Herstel</button><span class="feedback-pill" id="sentenceFeedback">Sleep of kies ’n woord.</span><span class="progress-pill" id="sentenceProgress">1 / 12</span></div>
+              <div class="small-row"><button class="small-btn lang-btn" type="button" id="toggleSentenceLangBtn">Wys English</button><button class="small-btn" type="button" id="newSentenceBtn">Nuwe sin</button><button class="small-btn" type="button" id="resetSentenceBtn">Herstel</button><span class="feedback-pill" id="sentenceFeedback">Sleep of kies ’n woord.</span><span class="progress-pill" id="sentenceProgress">1 / 20</span></div>
             </div>
           </section>
         </div>
@@ -334,26 +337,26 @@
     ];
 
     const sentenceChallenges = [
-      { sentence: 'Die slim ___ kruip oor die blaar.', answer: 'slak', options: ['slak', 'druiwe', 'rooi', 'tuinmuur'] },
-      { sentence: 'Ek ___ my tas stadig na die klas.', answer: 'sleep', options: ['sleep', 'gryp', 'rondom', 'groen'] },
-      { sentence: 'Die skilpad loop baie ___.', answer: 'stadig', options: ['stadig', 'sewe', 'groot', 'reguit'] },
-      { sentence: 'Daar is ___ potlode op die tafel.', answer: 'sewe', options: ['sewe', 'grys', 'varke', 'rotse'] },
-      { sentence: 'Die ___ slak los ’n blink spoor.', answer: 'slymerige', options: ['slymerige', 'vrolike', 'groen', 'rooi'] },
-      { sentence: 'Die skilpad eet vars ___.', answer: 'slaaiblare', options: ['slaaiblare', 'rotse', 'tamaties', 'tuinmuur'] },
-      { sentence: 'Die hond is wit en ___.', answer: 'grys', options: ['grys', 'gryp', 'reguit', 'rondom'] },
-      { sentence: 'Ek ___ die bal met twee hande.', answer: 'gryp', options: ['gryp', 'sleep', 'stadig', 'sewe'] },
-      { sentence: 'Die ___ boom staan by die hek.', answer: 'groot', options: ['groot', 'groen', 'rooi', 'vrolike'] },
-      { sentence: 'Die blare is mooi en ___.', answer: 'groen', options: ['groen', 'grys', 'slymerige', 'reguit'] },
-      { sentence: 'Ons eet pers ___ by middagete.', answer: 'druiwe', options: ['druiwe', 'varke', 'vyeblare', 'rotse'] },
-      { sentence: 'Loop ___ na die deur toe.', answer: 'reguit', options: ['reguit', 'rondom', 'stadig', 'groot'] },
-      { sentence: 'Die kinders hardloop ___ die boom.', answer: 'rondom', options: ['rondom', 'reguit', 'rooi', 'sleep'] },
-      { sentence: 'Die appel is helder ___.', answer: 'rooi', options: ['rooi', 'grys', 'groen', 'sewe'] },
-      { sentence: 'Daar lê groot ___ langs die pad.', answer: 'rotse', options: ['rotse', 'tamaties', 'slaaiblare', 'druiwe'] },
-      { sentence: 'Die ___ kinders lag hard.', answer: 'vrolike', options: ['vrolike', 'slymerige', 'grys', 'groot'] },
-      { sentence: 'Die ___ eet in die modder.', answer: 'varke', options: ['varke', 'slak', 'druiwe', 'vyeblare'] },
-      { sentence: 'Die bok kou aan die ___.', answer: 'vyeblare', options: ['vyeblare', 'tuinmuur', 'rotse', 'tamaties'] },
-      { sentence: 'Tannie Tina tel tien ___.', answer: 'tamaties', options: ['tamaties', 'druiwe', 'slaaiblare', 'varke'] },
-      { sentence: 'Die bal lê teen die ___.', answer: 'tuinmuur', options: ['tuinmuur', 'slak', 'groen', 'gryp'] }
+      { sentence: 'Die slim ___ kruip oor die blaar.', sentenceEn: 'The clever ___ crawls over the leaf.', answer: 'slak', options: ['slak', 'druiwe', 'rooi', 'tuinmuur'] },
+      { sentence: 'Ek ___ my tas stadig na die klas.', sentenceEn: 'I ___ my bag slowly to the class.', answer: 'sleep', options: ['sleep', 'gryp', 'rondom', 'groen'] },
+      { sentence: 'Die skilpad loop baie ___.', sentenceEn: 'The tortoise walks very ___.', answer: 'stadig', options: ['stadig', 'sewe', 'groot', 'reguit'] },
+      { sentence: 'Daar is ___ potlode op die tafel.', sentenceEn: 'There are ___ pencils on the table.', answer: 'sewe', options: ['sewe', 'grys', 'varke', 'rotse'] },
+      { sentence: 'Die ___ slak los ’n blink spoor.', sentenceEn: 'The ___ snail leaves a shiny trail.', answer: 'slymerige', options: ['slymerige', 'vrolike', 'groen', 'rooi'] },
+      { sentence: 'Die skilpad eet vars ___.', sentenceEn: 'The tortoise eats fresh ___.', answer: 'slaaiblare', options: ['slaaiblare', 'rotse', 'tamaties', 'tuinmuur'] },
+      { sentence: 'Die hond is wit en ___.', sentenceEn: 'The dog is white and ___.', answer: 'grys', options: ['grys', 'gryp', 'reguit', 'rondom'] },
+      { sentence: 'Ek ___ die bal met twee hande.', sentenceEn: 'I ___ the ball with two hands.', answer: 'gryp', options: ['gryp', 'sleep', 'stadig', 'sewe'] },
+      { sentence: 'Die ___ boom staan by die hek.', sentenceEn: 'The ___ tree stands by the gate.', answer: 'groot', options: ['groot', 'groen', 'rooi', 'vrolike'] },
+      { sentence: 'Die blare is mooi en ___.', sentenceEn: 'The leaves are pretty and ___.', answer: 'groen', options: ['groen', 'grys', 'slymerige', 'reguit'] },
+      { sentence: 'Ons eet pers ___ by middagete.', sentenceEn: 'We eat purple ___ at lunch.', answer: 'druiwe', options: ['druiwe', 'varke', 'vyeblare', 'rotse'] },
+      { sentence: 'Loop ___ na die deur toe.', sentenceEn: 'Walk ___ to the door.', answer: 'reguit', options: ['reguit', 'rondom', 'stadig', 'groot'] },
+      { sentence: 'Die kinders hardloop ___ die boom.', sentenceEn: 'The children run ___ the tree.', answer: 'rondom', options: ['rondom', 'reguit', 'rooi', 'sleep'] },
+      { sentence: 'Die appel is helder ___.', sentenceEn: 'The apple is bright ___.', answer: 'rooi', options: ['rooi', 'grys', 'groen', 'sewe'] },
+      { sentence: 'Daar lê groot ___ langs die pad.', sentenceEn: 'There are big ___ next to the road.', answer: 'rotse', options: ['rotse', 'tamaties', 'slaaiblare', 'druiwe'] },
+      { sentence: 'Die ___ kinders lag hard.', sentenceEn: 'The ___ children laugh loudly.', answer: 'vrolike', options: ['vrolike', 'slymerige', 'grys', 'groot'] },
+      { sentence: 'Die ___ eet in die modder.', sentenceEn: 'The ___ eat in the mud.', answer: 'varke', options: ['varke', 'slak', 'druiwe', 'vyeblare'] },
+      { sentence: 'Die bok kou aan die ___.', sentenceEn: 'The goat chews on the ___.', answer: 'vyeblare', options: ['vyeblare', 'tuinmuur', 'rotse', 'tamaties'] },
+      { sentence: 'Tannie Tina tel tien ___.', sentenceEn: 'Auntie Tina counts ten ___.', answer: 'tamaties', options: ['tamaties', 'druiwe', 'slaaiblare', 'varke'] },
+      { sentence: 'Die bal lê teen die ___.', sentenceEn: 'The ball lies against the ___.', answer: 'tuinmuur', options: ['tuinmuur', 'slak', 'groen', 'gryp'] }
     ];
 
     const cards = Array.from(document.querySelectorAll('.card'));
@@ -369,7 +372,7 @@
     let flashDeck = [...vocabWords], flashIndex = 0, flashShowingEnglish = false;
     let matchSet = [], selectedAf = null, selectedEn = null, matchedCount = 0;
     let typeDeck = shuffleArray(vocabWords), typeIndex = 0;
-    let sentenceDeck = shuffleArray(sentenceChallenges), sentenceIndex = 0, selectedSentenceWord = null;
+    let sentenceDeck = shuffleArray(sentenceChallenges), sentenceIndex = 0, selectedSentenceWord = null, sentenceLanguage = 'af';
 
     const el = id => document.getElementById(id);
     function shuffleArray(array) { const copy = [...array]; for (let i = copy.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [copy[i], copy[j]] = [copy[j], copy[i]]; } return copy; }
@@ -423,7 +426,7 @@
       vocabModes.forEach(mode => mode.classList.toggle('active', mode.id === `mode-${modeName}`));
       if (modeName === 'match') buildMatchSet();
       if (modeName === 'type') el('typeInput').focus();
-      if (modeName === 'sentence') renderSentenceChallenge();
+      if (modeName === 'sentence') renderSentenceChallenge(false);
     }
     modeButtons.forEach(btn => btn.addEventListener('click', () => setVocabMode(btn.dataset.mode)));
 
@@ -471,13 +474,19 @@
     el('nextTypeBtn').addEventListener('click', nextTypeQuestion);
     el('typeInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkTypeAnswer(); });
 
-    function renderSentenceChallenge() {
+    function renderSentenceChallenge(resetFeedback = true) {
       const challenge = sentenceDeck[sentenceIndex];
       selectedSentenceWord = null;
-      el('sentenceFeedback').textContent = 'Sleep of kies ’n woord.';
-      el('sentenceFeedback').style.background = 'var(--soft-yellow)';
+      if (resetFeedback) {
+        el('sentenceFeedback').textContent = 'Sleep of kies ’n woord.';
+        el('sentenceFeedback').style.background = 'var(--soft-yellow)';
+      }
       el('sentenceProgress').textContent = `${sentenceIndex + 1} / ${sentenceDeck.length}`;
-      el('sentenceText').innerHTML = challenge.sentence.replace('___', '<span class="sentence-gap" id="sentenceGap" tabindex="0" role="button" aria-label="Leë spasie vir antwoord">_____</span>');
+      el('toggleSentenceLangBtn').textContent = sentenceLanguage === 'af' ? 'Wys English' : 'Wys Afrikaans';
+      el('sentenceLangLabel').textContent = sentenceLanguage === 'af' ? 'Afrikaans konteks' : 'English context';
+      const chosenSentence = sentenceLanguage === 'af' ? challenge.sentence : challenge.sentenceEn;
+      el('sentenceText').classList.toggle('english-mode', sentenceLanguage === 'en');
+      el('sentenceText').innerHTML = chosenSentence.replace('___', '<span class="sentence-gap" id="sentenceGap" tabindex="0" role="button" aria-label="Leë spasie vir antwoord">_____</span>');
       const gap = el('sentenceGap');
       gap.addEventListener('dragover', e => { e.preventDefault(); gap.classList.add('ready'); });
       gap.addEventListener('dragleave', () => gap.classList.remove('ready'));
@@ -500,8 +509,10 @@
       else { gap.textContent = word; gap.classList.add('wrong'); el('sentenceFeedback').textContent = `Nie daardie een nie. Probeer weer.`; el('sentenceFeedback').style.background = 'var(--soft-pink)'; setTimeout(() => { gap.textContent = '_____'; gap.classList.remove('wrong'); }, 700); }
     }
     function nextSentence() { sentenceIndex = (sentenceIndex + 1) % sentenceDeck.length; renderSentenceChallenge(); }
+    function toggleSentenceLanguage() { sentenceLanguage = sentenceLanguage === 'af' ? 'en' : 'af'; renderSentenceChallenge(false); }
     el('newSentenceBtn').addEventListener('click', nextSentence);
-    el('resetSentenceBtn').addEventListener('click', renderSentenceChallenge);
+    el('resetSentenceBtn').addEventListener('click', () => renderSentenceChallenge());
+    el('toggleSentenceLangBtn').addEventListener('click', toggleSentenceLanguage);
 
     lockCardsForLesson(); renderFlashcard(); buildMatchSet(); renderTypeQuestion(); renderSentenceChallenge();
 
